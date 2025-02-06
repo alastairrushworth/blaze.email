@@ -1,10 +1,10 @@
 import Link from "next/link"
 
 const topics = [
-  "ai",
-  "data",
-  "frontend",
-  "entrepreneurship",
+  "Generated AI",
+  "Data Science with R",
+  "Tech & Startups",
+  "Machine Learning Engineer",
   // Add all 30 topics here
 ]
 
