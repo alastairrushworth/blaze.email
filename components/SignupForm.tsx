@@ -61,4 +61,3 @@ export function SignupForm({ topic }: { topic: string }) {
     </form>
   )
 }
-
