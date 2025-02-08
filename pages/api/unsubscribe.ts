@@ -3,7 +3,10 @@ import { Pool } from 'pg';
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-});
+  ssl: {
+    rejectUnauthorized: false
+  }
+})
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
@@ -16,7 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try {
       const client = await pool.connect();
       const query = "INSERT INTO blaze_subscribers (email, action, newsletter, datetime) VALUES ($1, 'unsubscribe', $2, NOW())";
-      
+
       for (const topic of topics) {
         const newsletter = topic === 'all' ? 'all' : topic;
         await client.query(query, [email, newsletter]);
