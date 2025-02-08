@@ -8,6 +8,19 @@ const pool = new Pool({
 });
 
 export async function getLatestNewsletter(topic: string) {
+  try {
+    const client = await pool.connect();
+    const topic_name = topic.replace(/-/g, ' ');
+    console.log(topic_name);
+    const query = "SELECT text as content, datetime as publishedat FROM blaze_newsletter_md WHERE newsletter = $1 ORDER BY datetime DESC LIMIT 1";
+    const result = await client.query(query, [topic_name]);
+    // console.log(result);
+    client.release();
+    return result.rows[0];
+  } catch (error) {
+    console.error('Error fetching data from newsletters table:', error);
+    return null;
+  }
   return null;
 }
 
@@ -22,3 +35,4 @@ export async function unsubscribeNewsletter(email: string, topic: string) {
     throw new Error('Internal server error');
   }
 }
+
