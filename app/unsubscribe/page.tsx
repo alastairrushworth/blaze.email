@@ -4,6 +4,9 @@ import { useState } from "react"
 import Link from "next/link"
 import { newsletters } from "../newsletters"
 
+// get keys from newsletters object
+const newsletter_names = Object.keys(newsletters)
+
 export default function UnsubscribePage() {
   const [email, setEmail] = useState("")
   const [selectedTopics, setSelectedTopics] = useState<string[]>([])
@@ -69,7 +72,7 @@ export default function UnsubscribePage() {
               Select the newsletters you want to unsubscribe from:
             </p>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {newsletters.map((topic) => (
+              {newsletter_names.map((topic) => (
                 <label key={topic} className="flex items-center space-x-2">
                   <input
                     type="checkbox"
@@ -85,8 +88,8 @@ export default function UnsubscribePage() {
           <div className="flex items-center">
             <input
               type="checkbox"
-              checked={selectedTopics.length === newsletters.length}
-              onChange={() => setSelectedTopics(selectedTopics.length === newsletters.length ? [] : [...newsletters])}
+              checked={selectedTopics.length === newsletter_names.length}
+              onChange={() => setSelectedTopics(selectedTopics.length === newsletter_names.length ? [] : [...newsletter_names])}
               className="form-checkbox h-5 w-5 text-indigo-600 mr-2"
             />
             <span className="text-gray-700 dark:text-gray-300">Unsubscribe from all newsletters</span>
