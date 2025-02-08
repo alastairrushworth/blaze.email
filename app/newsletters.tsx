@@ -1,8 +1,23 @@
-export const newsletters = [
-    "Generative AI",
-    "Data Scientist (with R)",
-    "Tech and Startups",
-    "Machine Learning Engineer",
-    "Crypto and Blockchain",
-    // Add all 30 topics here
-]
+export const newsletters = {
+    "Generative AI": {
+        'emoji': '🤖',
+        'about': 'AI research, LLMs and new AI tooling'
+    },
+    "Data Scientist (with R)": {
+        'emoji': '📊',
+        'about': 'everything R programming'
+    },
+    "Tech and Startups": {
+        'emoji': '🚀',
+        'about': 'entrepeneurship, building tech teams and products'
+    },
+    "Machine Learning Engineer": {
+        'emoji': '🧠',
+        'about': 'ML research, models and tools'
+    },
+    "Crypto and Blockchain": {
+        'emoji': '💰',
+        'about': 'crypto, DeFi and blockchain'
+    },
+}
+
