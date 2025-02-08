@@ -1,38 +1,20 @@
-import ReactMarkdown from "react-markdown"
+import React from 'react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import remarkBreaks from 'remark-breaks';
+import { format, parseISO } from 'date-fns';
 
 interface Newsletter {
-  id: number
-  topic: string
-  content: string
-  publishedAt: string
+  content: string;
+  publishedAt: string;
 }
 
-const placeholderNewsletter: Newsletter = {
-  id: 1,
-  topic: "placeholder",
-  content: `
-# This Week in Tech: Latest Breakthroughs and Updates
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor.
-
-## Key Highlights
-
-1. **Innovation in AI**: Ut in nulla enim. Phasellus molestie magna non est bibendum non venenatis nisl tempor. Suspendisse dictum feugiat nisl ut dapibus.
-
-2. **Advancements in Quantum Computing**: Mauris iaculis porttitor posuere. Praesent id metus massa, ut blandit odio. Proin quis tortor orci. Etiam at risus et justo dignissim congue.
-
-3. **Cybersecurity Trends**: Fusce convallis, mauris imperdiet gravida bibendum, nisl turpis suscipit mauris, sed placerat ipsum urna sed risus. In convallis tellus a mauris.
-
-## What to Watch
-
-Curabitur lacinia pulvinar nibh. Nam a sapien in turpis pulvinar efficitur quis hendrerit sem. Sed molestie, nulla quis elementum dapibus, mauris elit elementum enim, eget rhoncus eros sapien a enim.
-
-Stay tuned for more updates in our next newsletter!
-  `,
-  publishedAt: new Date().toISOString(),
+interface Section {
+  title: string;
+  content: string;
 }
 
-export function LatestNewsletter({ newsletter = placeholderNewsletter }: { newsletter?: Newsletter | null }) {
+export function LatestNewsletter({ newsletter }: { newsletter?: Newsletter | null }) {
   if (!newsletter) {
     return (
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
@@ -40,19 +22,64 @@ export function LatestNewsletter({ newsletter = placeholderNewsletter }: { newsl
           No newsletter available yet. Subscribe to be the first to receive it!
         </p>
       </div>
-    )
+    );
   }
 
+  // Split content into sections based on ## headers
+  const splitSections = (content: string): Section[] => {
+    const sections = content.split(/(?=## )/);
+    return sections.map(section => {
+      const lines = section.trim().split('\n');
+      const title = lines[0].startsWith('## ')
+        ? lines[0].replace('## ', '').trim()
+        : 'Introduction';
+      const content = lines[0].startsWith('## ')
+        ? lines.slice(1).join('\n')
+        : lines.join('\n');
+      return { title, content: content.trim() };
+    });
+  };
+
+  const sections = splitSections(newsletter.content);
+
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
-      <h2 className="text-3xl font-semibold mb-4 text-indigo-800 dark:text-indigo-200">Latest Newsletter</h2>
-      <p className="text-sm text-indigo-500 dark:text-indigo-400 mb-4">
-        Published on {new Date(newsletter.publishedAt).toLocaleDateString()}
-      </p>
-      <div className="prose dark:prose-invert max-w-none">
-        <ReactMarkdown>{newsletter.content}</ReactMarkdown>
-      </div>
+    <div className="space-y-6">
+      {sections.map((section, index) => (
+        <div
+          key={index}
+          className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8"
+        >
+          <h2 className="text-2xl font-bold mb-6 text-indigo-700 dark:text-indigo-300">
+            {section.title}
+          </h2>
+          <div className="prose dark:prose-invert max-w-none prose-lg prose-indigo">
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm, remarkBreaks]}
+              components={{
+                // Remove h2 from markdown rendering since we're handling it separately
+                h2: () => null,
+                // Enhance link styling
+                a: ({ node, ...props }) => (
+                  <a
+                    {...props}
+                    className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  />
+                ),
+                // Enhance paragraph styling
+                p: ({ node, ...props }) => (
+                  <p {...props} className="mb-4" />
+                )
+              }}
+            >
+              {section.content}
+            </ReactMarkdown>
+          </div>
+        </div>
+      ))}
     </div>
-  )
+  );
 }
 
+export default LatestNewsletter;

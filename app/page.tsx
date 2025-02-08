@@ -17,7 +17,7 @@ export default function Home() {
             href={`/${topic.replace(/\s+/g, '-')}`}
             className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-105"
           >
-            <h2 className="text-2xl font-semibold capitalize text-indigo-600 dark:text-indigo-300 mb-2">{topic.replace(/-/g, ' ')}</h2>
+            <h2 className="text-2xl font-semibold text-indigo-600 dark:text-indigo-300 mb-2">{topic.replace(/-/g, ' ')}</h2>
             <p className="text-gray-600 dark:text-gray-300 mb-4">Weekly updates on {topic.replace(/-/g, ' ')}</p>
             <div className="text-indigo-500 dark:text-indigo-400 font-medium flex items-center">
               Subscribe now
