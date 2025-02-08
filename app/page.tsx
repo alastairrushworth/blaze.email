@@ -17,7 +17,7 @@ export default function Home() {
             <h2 className="text-2xl font-semibold text-indigo-600 dark:text-indigo-300 mb-2">
               {details.emoji} {topic}
             </h2>
-            <p className="text-gray-600 dark:text-gray-300 mb-4">Weekly updates on {details.about}</p>
+            <p className="text-gray-600 dark:text-gray-300 mb-4">{details.about}</p>
             <div className="text-indigo-500 dark:text-indigo-400 font-medium flex items-center">
               Subscribe now
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
