@@ -1,12 +1,6 @@
 import Link from "next/link"
+import { newsletters } from "./newsletters"
 
-const topics = [
-  "Generated AI",
-  "Data Science with R",
-  "Tech & Startups",
-  "Machine Learning Engineer",
-  // Add all 30 topics here
-]
 
 export default function Home() {
   return (
@@ -17,7 +11,7 @@ export default function Home() {
         Curated newsletters delivered every week, helping you stay ahead in tech
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {topics.map((topic) => (
+        {newsletters.map((topic) => (
           <Link
             key={topic}
             href={`/${topic}`}
