@@ -24,27 +24,21 @@ export default function UnsubscribePage() {
       return
     }
     try {
-      // This is a placeholder for the actual API call
-      // const response = await fetch('/api/unsubscribe', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify({ email, topics: selectedTopics }),
-      // })
-      // const data = await response.json()
-      // if (response.ok) {
-      //   setMessage('You have been unsubscribed from the selected newsletters.')
-      //   setEmail('')
-      //   setSelectedTopics([])
-      // } else {
-      //   setMessage(data.error || 'An error occurred. Please try again.')
-      // }
-
-      // Placeholder success message
-      setMessage(`You have been unsubscribed from the selected newsletters: ${selectedTopics.join(", ")}`)
-      setEmail("")
-      setSelectedTopics([])
+      const response = await fetch('/api/unsubscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, topics: selectedTopics }),
+      })
+      const data = await response.json()
+      if (response.ok) {
+        setMessage('You have been unsubscribed from the selected newsletters.')
+        setEmail('')
+        setSelectedTopics([])
+      } else {
+        setMessage(data.error || 'An error occurred. Please try again.')
+      }
     } catch (error) {
       setMessage("An error occurred. Please try again.")
     }
@@ -123,4 +117,3 @@ export default function UnsubscribePage() {
     </div>
   )
 }
-
