@@ -8,13 +8,14 @@ export function SignupForm({ topic }: { topic: string }) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    const formattedTopic = topic.replace(/\s+/g, '-')
     try {
       const response = await fetch("/api/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, topic }),
+        body: JSON.stringify({ email, topic: formattedTopic }),
       })
       const data = await response.json()
       if (response.ok) {
