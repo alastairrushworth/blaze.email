@@ -15,7 +15,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     try {
       const client = await pool.connect();
-      const query = 'INSERT INTO signup (email, topic) VALUES ($1, $2)';
+      const query = "INSERT INTO blaze_subscribers (email, action, newsletter, datetime) VALUES ($1, 'subscribe', $2, NOW())"
+        ;;
       await client.query(query, [email, topic]);
       client.release();
       return res.status(200).json({ message: 'Signup successful' });
