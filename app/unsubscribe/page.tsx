@@ -77,7 +77,7 @@ export default function UnsubscribePage() {
                     onChange={() => handleTopicToggle(topic)}
                     className="form-checkbox h-5 w-5 text-indigo-600"
                   />
-                  <span className="text-gray-700 dark:text-gray-300 capitalize">{topic}</span>
+                  <span className="text-gray-700 dark:text-gray-300 capitalize">{topic.replace(/-/g, ' ')}</span>
                 </label>
               ))}
             </div>
