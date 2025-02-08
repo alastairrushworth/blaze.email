@@ -14,7 +14,7 @@ export default function Home() {
         {newsletters.map((topic) => (
           <Link
             key={topic}
-            href={`/${topic}`}
+            href={`/${topic.replace(/\s+/g, '-')}`}
             className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-105"
           >
             <h2 className="text-2xl font-semibold capitalize text-indigo-600 dark:text-indigo-300 mb-2">{topic}</h2>
