@@ -2,39 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
-
-const topics = [
-  "ai",
-  "data",
-  "frontend",
-  "entrepreneurship",
-  "backend",
-  "mobile",
-  "devops",
-  "cloud",
-  "security",
-  "blockchain",
-  "iot",
-  "machine-learning",
-  "ar-vr",
-  "ui-ux",
-  "product-management",
-  "tech-ethics",
-  "open-source",
-  "quantum-computing",
-  "robotics",
-  "space-tech",
-  "5g",
-  "edge-computing",
-  "fintech",
-  "healthtech",
-  "edtech",
-  "greentech",
-  "biotech",
-  "nanotech",
-  "cybersecurity",
-  "data-science",
-]
+import { topics } from "../page"
 
 export default function UnsubscribePage() {
   const [email, setEmail] = useState("")
@@ -115,7 +83,7 @@ export default function UnsubscribePage() {
                     onChange={() => handleTopicToggle(topic)}
                     className="form-checkbox h-5 w-5 text-indigo-600"
                   />
-                  <span className="text-gray-700 dark:text-gray-300 capitalize">{topic.replace("-", " ")}</span>
+                  <span className="text-gray-700 dark:text-gray-300 capitalize">{topic}</span>
                 </label>
               ))}
             </div>
