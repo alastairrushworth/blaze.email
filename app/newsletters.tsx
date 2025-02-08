@@ -7,7 +7,7 @@ export const newsletters = {
         'emoji': '📊',
         'about': 'everything R programming'
     },
-    "Tech and Startups": {
+    "Tech and startups": {
         'emoji': '🚀',
         'about': 'entrepeneurship, building tech teams and products'
     },
