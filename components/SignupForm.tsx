@@ -43,7 +43,7 @@ export function SignupForm({ topic }: { topic: string }) {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="flex-1 px-4 py-2 rounded-md border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+            className="flex-1 px-4 py-2 rounded-md border-2 border-gray-500 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 placeholder-gray-500 dark:placeholder-gray-400" // Further adjusted border color and width for better visibility
             placeholder="you@example.com"
           />
           <button
