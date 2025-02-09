@@ -2,14 +2,9 @@ import { Pool } from 'pg';
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: process.env.NODE_ENV === 'production'
-    ? {
-      rejectUnauthorized: true, // Enable strict SSL in production
-      ca: process.env.CA_CERT // DigitalOcean's CA certificate
-    }
-    : {
-      rejectUnauthorized: false // Less strict for local development
-    }
+  ssl: {
+    rejectUnauthorized: false  // This is needed for both local and production
+  }
 });
 
 export async function getLatestNewsletter(topic: string) {
