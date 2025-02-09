@@ -70,6 +70,10 @@ export function LatestNewsletter({ newsletter }: { newsletter?: Newsletter | nul
                 // Enhance paragraph styling
                 p: ({ node, ...props }) => (
                   <p {...props} className="mb-4 text-gray-900 dark:text-gray-300" /> // Adjusted text color for better visibility
+                ),
+                // Enhance list item styling
+                li: ({ node, ...props }) => (
+                  <li {...props} className="text-gray-900 dark:text-gray-300" /> // Adjusted text color for better visibility
                 )
               }}
             >
