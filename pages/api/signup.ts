@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { pool } from '@/lib/db'
+import { subscribeNewsletter } from '@/lib/db';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
@@ -10,11 +10,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     try {
-      const client = await pool.connect();
-      const query = "INSERT INTO blaze_subscribers (email, action, newsletter, datetime) VALUES ($1, 'subscribe', $2, NOW())"
-        ;;
-      await client.query(query, [email, topic]);
-      client.release();
+      await subscribeNewsletter(email, topic);
       return res.status(200).json({ message: 'Signup successful' });
     } catch (error) {
       console.error('Error inserting data into signup table:', error);
