@@ -21,7 +21,6 @@ export async function getLatestNewsletter(topic: string) {
     console.error('Error fetching data from newsletters table:', error);
     return null;
   }
-  return null;
 }
 
 export async function unsubscribeNewsletter(email: string, topic: string) {
@@ -36,3 +35,16 @@ export async function unsubscribeNewsletter(email: string, topic: string) {
   }
 }
 
+export async function subscribeNewsletter(email: string, topic: string) {
+  try {
+      const client = await pool.connect();
+      const query = "INSERT INTO blaze_subscribers (email, action, newsletter, datetime) VALUES ($1, 'subscribe', $2, NOW())"
+        ;;
+      await client.query(query, [email, topic]);
+      client.release();
+  }
+  catch (error) {
+      console.error('Error inserting data into signup table:', error);
+      throw new Error('Internal server error');
+  }
+}
