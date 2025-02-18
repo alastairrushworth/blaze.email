@@ -1,5 +1,8 @@
-# ignore node_modules folder
-node_modules/*
-.next/*
+# ignore node_modules folder and other site dependencies
+**/node_modules/
+**/.next/
 
+# exlude the .env.local and .env files
 .env.local
+.env
+
