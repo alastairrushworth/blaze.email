@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 setup(
     name="blaze",
     version="0.1.0",
-    packages=find_packages(include=['blaze.*']),
+    packages=find_packages(['blaze', 'blaze.*']),
     install_requires=[
         'anthropic==0.20.0',
         'asyncpg==0.29.0',

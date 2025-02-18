@@ -4,7 +4,7 @@ from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 import pandas as pd
 from sqlalchemy import create_engine
 from datetime import timedelta
-from utils.tools import time_now
+from ..utils.tools import time_now
 import os
 
 pg_host = os.environ['PG_HOST']

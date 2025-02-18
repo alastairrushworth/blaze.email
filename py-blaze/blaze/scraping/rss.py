@@ -1,8 +1,8 @@
 import pandas as pd
 from dateutil.parser import parse
-from data.postgres import url_in_table, PG
-from scraping import read_rss, CorpusReader, get_basedomain
-from ai.llm import llm_completion
+from ..data.postgres import url_in_table, PG
+from ..scraping import read_rss, CorpusReader, get_basedomain
+from ..ai.llm import llm_completion
 from catboost import CatBoostClassifier, Pool
 from sklearn.model_selection import train_test_split
 import os
