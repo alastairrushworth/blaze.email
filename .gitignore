@@ -6,3 +6,6 @@
 .env.local
 .env
 
+# 
+*.pyc
+.DS_Store
