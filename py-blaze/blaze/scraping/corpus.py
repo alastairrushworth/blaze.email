@@ -2,8 +2,8 @@ import random
 import pickle
 import time
 import pandas as pd
-from scraping.site import SiteParse
-from data.postgres import url_in_table, PG
+from ..scraping.site import SiteParse
+from ..data.postgres import url_in_table, PG
 import concurrent.futures
 
 class CorpusReader():

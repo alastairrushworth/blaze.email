@@ -3,7 +3,7 @@ import voyageai
 import os
 import pandas as pd
 import backoff
-from ai.tokens import truncate_string_to_token_limit
+from .tokens import truncate_string_to_token_limit
 
 # basic error handling
 class APICallError(Exception):

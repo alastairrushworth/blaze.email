@@ -1,7 +1,7 @@
 import re
 from io import BytesIO
 import feedparser
-from scraping.url import URLReader, _clean_links, _strip_trailing_slash
+from ..scraping.url import URLReader, _clean_links, _strip_trailing_slash
 
 class SiteParse(URLReader):
     def __init__(

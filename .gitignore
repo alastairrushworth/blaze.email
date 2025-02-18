@@ -9,3 +9,9 @@
 # 
 *.pyc
 .DS_Store
+
+# don't include anything .egg-info related
+*.egg-info/
+
+# don't inlcude ipython notebooks
+*.ipynb

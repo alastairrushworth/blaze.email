@@ -3,7 +3,7 @@ import pandas as pd
 from pinecone import Pinecone
 import numpy as np
 import os
-from ai.embedding import text_to_embedding
+from ..ai.embedding import text_to_embedding
 import time
 import re
 
