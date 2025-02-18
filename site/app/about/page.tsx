@@ -10,14 +10,8 @@ export default function AboutPage() {
           keeping you informed on the latest trends, innovations, and insights across various technology domains.
         </p>
         <p className="text-gray-700 dark:text-gray-300 mb-4">
-          Our team of expert curators scours the tech landscape to bring you the most relevant and impactful stories
-          each week. Whether you're a developer, entrepreneur, or tech enthusiast, we have a newsletter tailored to your
-          interests.
-        </p>
-        <p className="text-gray-700 dark:text-gray-300 mb-4">
           At blaze.email, we believe in the power of knowledge and the importance of staying ahead in the fast-paced
           world of technology. Our mission is to empower you with the information you need to excel in your field and
-          stay informed about the technologies shaping our future.
         </p>
         <p className="text-gray-700 dark:text-gray-300">
           Join thousands of tech professionals who trust blaze.email for their weekly dose of curated tech insights.
