@@ -13,5 +13,5 @@
 # don't include anything .egg-info related
 *.egg-info/
 
-# don't inlcude ipython notebooks
+# don't include ipython notebooks
 *.ipynb
