@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 setup(
     name="blaze",
     version="0.1.0",
-    packages=['blaze'],
+    packages=['blaze', 'ai', 'data', 'scraping', 'utils'],
     install_requires=[
         'anthropic>=0.20.0',
         'backoff>=2.2.1',
