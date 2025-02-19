@@ -9,8 +9,6 @@ setup(
         'asyncpg==0.29.0',
         'backoff==2.2.1',
         'beautifulsoup4==4.12.2',
-        'boto3==1.34.10',
-        'botocore==1.34.10',
         'catboost==1.2',
         'feedparser==6.0.10',
         'joblib==1.2.0',
