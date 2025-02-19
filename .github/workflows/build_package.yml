@@ -1,0 +1,44 @@
+name: Build and Release Python Package
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          
+      - name: Install build tools
+        run: |
+          python -m pip install --upgrade pip
+          pip install build wheel
+          
+      - name: Build package
+        run: |
+          cd py-blaze
+          python -m build
+          
+      - name: Delete previous release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release delete latest --yes || true
+          git push --delete origin latest || true
+          
+      - name: Create Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create latest \
+            --title "Latest Build" \
+            --notes "Automated build from commit ${GITHUB_SHA}" \
+            py-blaze/dist/* \
+            --target main
