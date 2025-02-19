@@ -1,9 +1,9 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 
 setup(
     name="blaze",
     version="0.1.0",
-    packages=['blaze', 'ai', 'data', 'scraping', 'utils'],
+    packages=['blaze', 'blaze.ai', 'blaze.data', 'blaze.utils', 'blaze.scraping'],
     install_requires=[
         'anthropic>=0.20.0',
         'backoff>=2.2.1',
