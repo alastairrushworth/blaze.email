@@ -3,6 +3,7 @@ import { Nunito_Sans } from "next/font/google"
 import { ThemeProvider } from "next-themes"
 import { Footer } from "@/components/Footer"
 import { ThemeToggle } from "@/components/ThemeToggle"
+import GoogleAnalytics from "@/components/GoogleAnalytics"
 import type React from "react"
 
 const nunitoSans = Nunito_Sans({
@@ -23,6 +24,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning className={nunitoSans.variable}>
+      <GoogleAnalytics />
       <body
         className={`font-sans bg-gradient-to-br from-indigo-100 to-purple-100 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300`}
       >
