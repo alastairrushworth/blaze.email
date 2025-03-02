@@ -11,7 +11,7 @@ export default function Home() {
           <Image src={logo} alt="Logo" width={70} height={70} className="mr-2" />
           <h1 className="text-5xl font-bold text-indigo-800 dark:text-indigo-200">blaze.email</h1>
         </div>
-        <p className="text-xl text-center text-indigo-600 dark:text-indigo-300 mb-4">Your weekly dose of tech insights</p>
+        <p className="text-xl text-center text-indigo-600 dark:text-indigo-300 mb-4">Weekly digests collating the best blogs and tech insights</p>
         <br></br><br></br>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {Object.entries(newsletters).map(([topic, details]) => (
