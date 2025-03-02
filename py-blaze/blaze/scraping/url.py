@@ -174,6 +174,19 @@ def get_basedomain(url):
     return result
     
 def _fetch_page_with_headless_browser(url, timeout, user_agent, proxies=None, chrome_driver_path=None):
+    """
+    Fetches webpage content using a headless Chrome browser with customized settings.
+    
+    Args:
+        url (str): The URL to fetch
+        timeout (int): Maximum time in seconds to wait for page load
+        user_agent (str): User agent string to use for the request
+        proxies (dict, optional): Proxy configuration to use
+        chrome_driver_path (str, optional): Path to Chrome driver executable
+        
+    Returns:
+        tuple: (page_source, resolved_url) containing the HTML content and final URL after redirects
+    """
     # Configure headless browser
     options = Options()
     options.add_argument('--disable-gpu')
@@ -300,6 +313,18 @@ def _get_email_links(soup, exclude):
     return list(set(email_links_clean)), list(set(exclude))
 
 def _get_other_links(soup, basedomain, basedomain_list, exclude):
+    """
+    Extracts and categorizes links from a BeautifulSoup object into internal, subdomain, and external links.
+    
+    Args:
+        soup (BeautifulSoup): Parsed HTML content
+        basedomain (str): Primary domain of the page being processed
+        basedomain_list (list): List of domains considered "internal"
+        exclude (list): List of URLs to exclude from results
+        
+    Returns:
+        tuple: (internal_urls, subdomain_urls, external_urls) containing lists of categorized URLs
+    """
     a_tags = soup.find_all('a')
     links = [x.get('href') for x in a_tags]
     links = [x for x in links if x not in exclude]
