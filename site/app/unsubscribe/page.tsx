@@ -32,7 +32,7 @@ export default function UnsubscribePage() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, topics: selectedTopics.map(topic => topic.replace(/\s+/g, '-')) }),
+        body: JSON.stringify({ email, topics: selectedTopics }),
       })
       const data = await response.json()
       if (response.ok) {
