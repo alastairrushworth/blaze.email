@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 
 export function Footer() {
   return (
@@ -6,7 +7,16 @@ export function Footer() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-wrap justify-between items-center">
           <div className="w-full md:w-1/3 mb-6 md:mb-0">
-            <h3 className="text-2xl font-bold mb-2">blaze.email</h3>
+            <div className="flex items-center mb-2">
+              <Image 
+                src="/favicon.png" 
+                alt="Blaze Email Logo" 
+                width={24} 
+                height={24} 
+                className="mr-2" 
+              />
+              <h3 className="text-2xl font-bold">blaze.email</h3>
+            </div>
             <p className="text-indigo-200 dark:text-indigo-300">Weekly technology news digests</p>
           </div>
           <div className="w-full md:w-1/3 mb-6 md:mb-0">
