@@ -6,7 +6,7 @@ import { format, parseISO } from 'date-fns';
 
 interface Newsletter {
   content: string;
-  publishedAt: string;
+  publishedat: string;
 }
 
 interface Section {
@@ -24,6 +24,9 @@ export function LatestNewsletter({ newsletter }: { newsletter?: Newsletter | nul
       </div>
     );
   }
+  
+  // For debugging
+  console.log("Newsletter data:", newsletter);
 
   // Split content into sections based on ## headers
   const splitSections = (content: string): Section[] => {
