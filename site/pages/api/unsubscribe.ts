@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { pool } from '@/lib/db'
+import { unsubscribeNewsletter } from '@/lib/db'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
@@ -10,18 +10,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     try {
-      const client = await pool.connect();
-      const query = "INSERT INTO blaze_subscribers (email, action, newsletter, datetime) VALUES ($1, 'unsubscribe', $2, NOW())";
-
+      // Process each topic
       for (const topic of topics) {
-        const newsletter = topic === 'all' ? 'all' : topic;
-        await client.query(query, [email, newsletter]);
+        // Replace hyphens with spaces to match database format
+        const formattedTopic = topic === 'all' ? 'all' : topic.replace(/-/g, ' ');
+        
+        // Log the operation for debugging
+        console.log(`Unsubscribing ${email} from ${formattedTopic}`);
+        
+        // Call the DB function
+        await unsubscribeNewsletter(email, formattedTopic);
       }
 
-      client.release();
       return res.status(200).json({ message: 'Unsubscribe successful' });
     } catch (error) {
-      console.error('Error inserting data into unsubscribe table:', error);
+      console.error('Error in unsubscribe API:', error);
       return res.status(500).json({ error: 'Internal server error' });
     }
   } else {
