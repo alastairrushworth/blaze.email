@@ -1,6 +1,6 @@
 export const newsletters = {
     "Generative AI": {
-        'emoji': '🤖',
+        'emoji': '🧠',
         'about': 'AI research, LLMs and new AI tooling.'
     },
     "Data Scientist (with R)": {
@@ -12,16 +12,16 @@ export const newsletters = {
         'about': 'Entrepeneurship, building tech teams and products.'
     },
     "Machine Learning Engineer": {
-        'emoji': '🧠',
+        'emoji': '🤖',
         'about': 'ML research, models and tools.'
     },
-    "Crypto and Blockchain": {
-        'emoji': '💰',
+    "Crypto": {
+        'emoji': 'Ⲷ',
         'about': 'Crypto, DeFi and blockchain.'
     },
     "Quant finance": {
         'emoji': '💹',
-        'about': 'Quantitative finance, trading and investment.'
+        'about': 'Quantitative trading and investment.'
     },
 }
 
