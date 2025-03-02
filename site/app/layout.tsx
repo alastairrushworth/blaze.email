@@ -15,6 +15,10 @@ const nunitoSans = Nunito_Sans({
 export const metadata = {
   title: "blaze.email - Weekly Tech Newsletters",
   description: "Stay updated with weekly curated tech newsletters",
+  icons: {
+    icon: '/favicon.png',
+    apple: '/favicon.png',
+  },
 }
 
 export default function RootLayout({
