@@ -8,7 +8,7 @@ export default function Home() {
     <>
       <div className="py-16">
         <div className="flex justify-center items-center mb-4">
-          <Image src={logo} alt="Logo" width={70} height={70} className="mr-2" />
+          <Image src={logo} alt="Logo" width={55} height={55} className="mr-2" />
           <h1 className="text-5xl font-bold text-indigo-800 dark:text-indigo-200">blaze.email</h1>
         </div>
         <p className="text-xl text-center text-indigo-600 dark:text-indigo-300 mb-4">Weekly digests collating the best blogs and tech insights</p>
