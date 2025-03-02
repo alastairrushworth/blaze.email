@@ -7,7 +7,7 @@ export function Footer() {
         <div className="flex flex-wrap justify-between items-center">
           <div className="w-full md:w-1/3 mb-6 md:mb-0">
             <h3 className="text-2xl font-bold mb-2">blaze.email</h3>
-            <p className="text-indigo-200 dark:text-indigo-300">Weekly tech insights in your inbox</p>
+            <p className="text-indigo-200 dark:text-indigo-300">Weekly technology news digests</p>
           </div>
           <div className="w-full md:w-1/3 mb-6 md:mb-0">
             <h4 className="text-lg font-semibold mb-2">Quick Links</h4>
