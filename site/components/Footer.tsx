@@ -8,12 +8,12 @@ export function Footer() {
         <div className="flex flex-wrap justify-between items-center">
           <div className="w-full md:w-1/3 mb-6 md:mb-0">
             <div className="flex items-center mb-2">
-              <Image 
-                src="/favicon.png" 
-                alt="Blaze Email Logo" 
-                width={24} 
-                height={24} 
-                className="mr-2" 
+              <Image
+                src="/favicon.png"
+                alt="Blaze Email Logo"
+                width={24}
+                height={24}
+                className="mr-2"
               />
               <h3 className="text-2xl font-bold">blaze.email</h3>
             </div>
@@ -57,9 +57,6 @@ export function Footer() {
               </a>
             </div>
           </div>
-        </div>
-        <div className="mt-8 text-center text-indigo-200 dark:text-indigo-300">
-          <p>&copy; 2025 Creative Data Technologies. All rights reserved.</p>
         </div>
       </div>
     </footer>
