@@ -20,12 +20,12 @@ export default function Home() {
               href={`/${topic.replace(/\s+/g, '-')}`}
               className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-105"
             >
-              <h2 className="text-2xl font-semibold text-indigo-600 dark:text-indigo-300 mb-2">
+              <h2 className="text-xl font-semibold text-indigo-600 dark:text-indigo-300 mb-2">
                 {details.emoji} {topic}
               </h2>
-              <p className="text-gray-600 dark:text-gray-300 mb-4">{details.about}</p>
+              <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">{details.about}</p>
               <div className="text-indigo-500 dark:text-indigo-400 font-medium flex items-center">
-                Subscribe now
+                Go to newsletter
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
                   <path
                     fillRule="evenodd"
