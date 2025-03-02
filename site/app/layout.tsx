@@ -1,5 +1,5 @@
 import "./globals.css"
-import { Nunito_Sans } from "next/font/google"
+import { Nunito } from "next/font/google"
 import { ThemeProvider } from "next-themes"
 import { Footer } from "@/components/Footer"
 import { ThemeToggle } from "@/components/ThemeToggle"
@@ -7,9 +7,10 @@ import GoogleAnalytics from "@/components/GoogleAnalytics"
 import { Suspense } from "react"
 import type React from "react"
 
-const nunitoSans = Nunito_Sans({
+const nunitoSans = Nunito({
   subsets: ["latin"],
   display: "swap",
+  weight: ["400", "600", "700"], // Add required font weights
   variable: "--font-nunito-sans",
 })
 
