@@ -2,6 +2,54 @@ import { SignupForm } from "@/components/SignupForm"
 import { LatestNewsletter } from "@/components/LatestNewsletter"
 import { getLatestNewsletter } from '@/lib/db'
 import { format, parseISO } from 'date-fns'
+import { Metadata } from 'next'
+
+// Generate dynamic metadata for each topic page
+export async function generateMetadata({ params }: { params: { topic: string } }): Promise<Metadata> {
+  const latestNewsletter = await getLatestNewsletter(params.topic)
+  
+  let formattedDate = null
+  if (latestNewsletter?.publishedat) {
+    try {
+      const date = new Date(latestNewsletter.publishedat)
+      formattedDate = format(date, "MMMM d, yyyy")
+    } catch (error) {
+      formattedDate = latestNewsletter.publishedat.toString().split('T')[0]
+    }
+  }
+
+  const title = `${params.topic.replace(/-/g, ' ')} Newsletter`
+  const description = formattedDate 
+    ? `${params.topic.replace(/-/g, ' ')} newsletter for ${formattedDate}`
+    : `Weekly insights on ${params.topic.replace(/-/g, ' ')}`
+
+  return {
+    title: title,
+    description: description,
+    openGraph: {
+      title: title,
+      description: description,
+      type: 'article',
+      siteName: 'blaze.email',
+      images: [
+        {
+          url: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://blaze.email'}/api/og?topic=${encodeURIComponent(params.topic)}&date=${encodeURIComponent(formattedDate || '')}`,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: title,
+      description: description,
+      images: [
+        `${process.env.NEXT_PUBLIC_BASE_URL || 'https://blaze.email'}/api/og?topic=${encodeURIComponent(params.topic)}&date=${encodeURIComponent(formattedDate || '')}`,
+      ],
+    },
+  }
+}
 
 export default async function TopicPage({ params }: { params: { topic: string } }) {
   // Commented out database fetch
