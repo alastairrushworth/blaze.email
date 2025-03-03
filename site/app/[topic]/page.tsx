@@ -3,9 +3,22 @@ import { LatestNewsletter } from "@/components/LatestNewsletter"
 import { getLatestNewsletter } from '@/lib/db'
 import { format, parseISO } from 'date-fns'
 import { Metadata } from 'next'
+import { notFound } from 'next/navigation'
+import { newsletters } from '../newsletters'
+
+// Check if the topic exists in newsletters list
+function isValidTopic(topic: string): boolean {
+  const normalizedTopic = topic.replace(/-/g, ' ')
+  return Object.keys(newsletters).includes(normalizedTopic)
+}
 
 // Generate dynamic metadata for each topic page
 export async function generateMetadata({ params }: { params: { topic: string } }): Promise<Metadata> {
+  // Check if the topic exists
+  if (!isValidTopic(params.topic)) {
+    notFound()
+  }
+
   const latestNewsletter = await getLatestNewsletter(params.topic)
   
   let formattedDate = null
@@ -52,6 +65,11 @@ export async function generateMetadata({ params }: { params: { topic: string } }
 }
 
 export default async function TopicPage({ params }: { params: { topic: string } }) {
+  // Check if the topic exists
+  if (!isValidTopic(params.topic)) {
+    notFound()
+  }
+  
   // Commented out database fetch
   const latestNewsletter = await getLatestNewsletter(params.topic)
   
