@@ -2,6 +2,34 @@ import Link from "next/link"
 import { newsletters } from "./newsletters"
 import Image from "next/image"
 import logo from "@/public/logo.png" // Adjust the path to your logo image
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: "blaze.email - Weekly Tech Newsletters",
+  description: "Stay updated with weekly curated tech newsletters on AI, data science, and more",
+  openGraph: {
+    title: "blaze.email - Weekly Tech Newsletters",
+    description: "Stay updated with weekly curated tech newsletters on AI, data science, and more",
+    type: 'website',
+    siteName: 'blaze.email',
+    images: [
+      {
+        url: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://blaze.email'}/api/og?topic=Newsletters`,
+        width: 1200,
+        height: 630,
+        alt: 'blaze.email newsletters',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "blaze.email - Weekly Tech Newsletters",
+    description: "Stay updated with weekly curated tech newsletters on AI, data science, and more",
+    images: [
+      `${process.env.NEXT_PUBLIC_BASE_URL || 'https://blaze.email'}/api/og?topic=Newsletters`,
+    ],
+  },
+}
 
 export default function Home() {
   return (
@@ -11,7 +39,7 @@ export default function Home() {
           <Image src={logo} alt="Logo" width={55} height={55} className="mr-2" />
           <h1 className="text-5xl font-bold text-indigo-800 dark:text-indigo-200">blaze.email</h1>
         </div>
-        <p className="text-xl text-center text-indigo-600 dark:text-indigo-300 mb-4">Weekly digests collating the best blogs and tech insights</p>
+        <p className="text-xl text-center text-indigo-600 dark:text-indigo-300 mb-4">Weekly newsletter digests collating the best blogs and tech articles</p>
         <br></br><br></br>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {Object.entries(newsletters).map(([topic, details]) => (
