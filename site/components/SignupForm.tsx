@@ -48,11 +48,14 @@ export function SignupForm({ topic }: { topic: string }) {
           />
           <button
             type="submit"
-            className="whitespace-nowrap px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"
+            className="whitespace-nowrap px-5 py-2 border border-transparent rounded-md shadow-md text-sm font-medium text-white bg-rose-600 hover:bg-rose-700 dark:bg-rose-500 dark:hover:bg-rose-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500 transition duration-150 ease-in-out transform hover:scale-105"
           >
             Subscribe
           </button>
         </div>
+        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+          Newsletters sent once a week, unsubscribe anytime.
+        </p>
         {message && (
           <p
             className={`mt-2 text-sm ${message.includes("error") ? "text-red-600 dark:text-red-400" : "text-green-600 dark:text-green-400"}`}

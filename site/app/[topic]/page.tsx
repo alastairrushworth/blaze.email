@@ -106,6 +106,14 @@ export default async function TopicPage({ params }: { params: { topic: string } 
         <SignupForm topic={params.topic.replace(/-/g, ' ')} />
       </div>
       <LatestNewsletter newsletter={latestNewsletter} />
+      
+      {/* Bottom subscription box */}
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 mt-10">
+        <h2 className="text-3xl font-semibold mb-4 text-indigo-600 dark:text-indigo-300">
+          Don't miss next week's newsletter!
+        </h2>
+        <SignupForm topic={params.topic.replace(/-/g, ' ')} />
+      </div>
     </div>
   )
 }
