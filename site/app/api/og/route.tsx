@@ -100,6 +100,9 @@ export async function GET(request: NextRequest) {
     // Get the topic and date from the query parameters
     const topic = searchParams.get('topic') || 'Newsletter'
     const date = searchParams.get('date') || ''
+    
+    // Log for debugging
+    console.log(`Generating OG image for topic: ${topic}, date: ${date}`)
 
     return new ImageResponse(
       <OGImage topic={topic} date={date} />,

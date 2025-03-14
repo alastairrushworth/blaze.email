@@ -21,6 +21,7 @@ export const metadata = {
     icon: '/favicon.png',
     apple: '/favicon.png',
   },
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://blaze.email'),
 }
 
 export default function RootLayout({
