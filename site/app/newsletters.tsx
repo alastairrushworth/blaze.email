@@ -5,7 +5,7 @@ export const newsletters = {
     },
     "Data Scientist (with R)": {
         'emoji': '📊',
-        'about': 'R, statistics, visualization and data science.'
+        'about': 'R programming, data science and community updates.'
     },
     "Tech and startups": {
         'emoji': '🚀',
@@ -13,15 +13,15 @@ export const newsletters = {
     },
     "Machine Learning Engineer": {
         'emoji': '🤖',
-        'about': 'ML research, models and tools.'
+        'about': 'ML research, models and engineering.'
     },
     "Crypto": {
         'emoji': 'Ⲷ',
-        'about': 'Web3, DeFi and blockchain.'
+        'about': 'Web3, DeFi and blockchain news.'
     },
     "Electronics": {
         'emoji': '🪛',
-        'about': ''
+        'about': 'Hardware hacking, DIY projects and retro computing.'
     },
 }
 
