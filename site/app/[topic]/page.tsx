@@ -95,19 +95,19 @@ export default async function TopicPage({ params }: { params: { topic: string } 
   }
 
   return (
-    <div className="py-16 relative container mx-auto px-4">
+    <div className="py-6 md:py-16 relative container mx-auto px-1 sm:px-4">
       <BackButton />
       
-      <div className="pt-12 md:pt-8">
-        <h1 className="text-4xl font-bold mb-3 text-center text-indigo-800 dark:text-indigo-200">
+      <div className="pt-6 md:pt-8">
+        <h1 className="text-3xl md:text-4xl font-bold mb-2 md:mb-3 text-center text-indigo-800 dark:text-indigo-200">
           {params.topic.replace(/-/g, ' ')} Newsletter - {formattedDate ? formattedDate : "Weekly Edition"}
         </h1>
-        <h2 className="text-2xl font-normal mb-4 text-center text-indigo-700 dark:text-indigo-300">
+        <h2 className="text-xl md:text-2xl font-normal mb-3 md:mb-4 text-center text-indigo-700 dark:text-indigo-300">
           Latest news in {newsletters[params.topic.replace(/-/g, ' ')]?.about || `${params.topic.replace(/-/g, ' ')}`}
         </h2>
         
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 mb-6">
-          <h2 className="text-2xl font-semibold mb-4 text-indigo-600 dark:text-indigo-300">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-3 sm:p-6 md:p-8 mb-3 md:mb-6">
+          <h2 className="text-xl md:text-2xl font-semibold mb-2 md:mb-4 text-indigo-600 dark:text-indigo-300">
             Subscribe to this newsletter!
           </h2>
           <SignupForm topic={params.topic.replace(/-/g, ' ')} />

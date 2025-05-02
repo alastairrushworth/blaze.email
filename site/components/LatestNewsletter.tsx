@@ -17,7 +17,7 @@ interface Section {
 export function LatestNewsletter({ newsletter }: { newsletter?: Newsletter | null }) {
   if (!newsletter) {
     return (
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-3 sm:p-6 md:p-8">
         <p className="text-gray-600 dark:text-gray-300">
           No newsletter available yet. Subscribe to be the first to receive it!
         </p>
@@ -50,12 +50,12 @@ export function LatestNewsletter({ newsletter }: { newsletter?: Newsletter | nul
       {sections.map((section, index) => (
         <div
           key={index}
-          className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8"
+          className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-3 sm:p-6 md:p-8"
         >
-          <h2 className="text-2xl font-bold mb-6 text-indigo-700 dark:text-indigo-300">
+          <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-indigo-700 dark:text-indigo-300">
             {section.title}
           </h2>
-          <div className="prose dark:prose-invert max-w-none prose-lg prose-indigo">
+          <div className="prose dark:prose-invert max-w-none prose-base sm:prose-lg prose-indigo">
             <ReactMarkdown
               remarkPlugins={[remarkGfm, remarkBreaks]}
               components={{
