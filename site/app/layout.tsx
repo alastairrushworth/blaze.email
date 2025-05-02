@@ -4,6 +4,8 @@ import { ThemeProvider } from "next-themes"
 import { Footer } from "@/components/Footer"
 import { ThemeToggle } from "@/components/ThemeToggle"
 import GoogleAnalytics from "@/components/GoogleAnalytics"
+import SchemaJsonLd from "@/components/SchemaJsonLd"
+import { generateOrganizationSchema } from "@/lib/schema"
 import { Suspense } from "react"
 import type React from "react"
 
@@ -16,12 +18,16 @@ const nunitoSans = Nunito({
 
 export const metadata = {
   title: "blaze.email - Weekly Tech Newsletters",
-  description: "Stay updated with weekly curated tech newsletters",
+  description: "Stay updated with weekly curated tech newsletters on AI, data science, tech startups, machine learning, crypto, and electronics",
+  keywords: "tech newsletters, AI newsletter, data science newsletter, machine learning newsletter, crypto newsletter, tech startups, weekly newsletter",
   icons: {
     icon: '/favicon.png',
     apple: '/favicon.png',
   },
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://blaze.email'),
+  alternates: {
+    canonical: '/',
+  }
 }
 
 export default function RootLayout({
@@ -39,6 +45,7 @@ export default function RootLayout({
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <div className="flex flex-col min-h-screen">
+            <SchemaJsonLd schema={generateOrganizationSchema()} />
             <ThemeToggle />
             <main className="flex-grow">
               <div className="max-w-5xl mx-auto px-1 sm:px-4 md:px-6 lg:px-8">{children}</div>

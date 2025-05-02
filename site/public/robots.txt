@@ -1,4 +1,15 @@
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /_next/
 
+# Allow Google to index everything
+User-agent: Googlebot
+Allow: /
+
+# Allow Bing to index everything 
+User-agent: Bingbot
+Allow: /
+
+# Sitemap locations
 Sitemap: https://blaze.email/sitemap.xml
