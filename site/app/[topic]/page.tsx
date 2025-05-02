@@ -2,11 +2,15 @@ import { SubscriptionPopup } from "@/components/SubscriptionPopup"
 import { SignupForm } from "@/components/SignupForm"
 import { LatestNewsletter } from "@/components/LatestNewsletter"
 import { BackButton } from "@/components/BackButton"
+import Breadcrumb from "@/components/Breadcrumb"
+import SchemaJsonLd from "@/components/SchemaJsonLd"
 import { getLatestNewsletter } from '@/lib/db'
 import { format, parseISO } from 'date-fns'
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { newsletters } from '../newsletters'
+import Link from 'next/link'
+import { generateNewsletterSchema, getCanonicalUrl } from '@/lib/schema'
 
 // Check if the topic exists in newsletters list
 function isValidTopic(topic: string): boolean {
@@ -39,17 +43,29 @@ export async function generateMetadata({ params }: { params: { topic: string } }
   const title = `${normalizedTopic} Newsletter - ${formattedDate || 'Weekly Edition'}`
   const description = `A weekly roundup of ${aboutText}`
 
+  // Enhanced description with more keywords
+  const enhancedDescription = `Weekly curated ${normalizedTopic} newsletter featuring latest trends, research, tools, and articles. Subscribe for free to stay updated on ${aboutText}`;
+  
+  // Image URL for OG and Twitter cards
+  const imageUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'https://blaze.email'}/api/og?topic=${encodeURIComponent(params.topic)}&date=${encodeURIComponent(formattedDate || '')}`;
+  
+  // Canonical URL
+  const canonicalUrl = getCanonicalUrl(`/${params.topic}`);
+  
   return {
     title: title,
-    description: description,
+    description: enhancedDescription,
+    keywords: `${normalizedTopic.toLowerCase()}, newsletter, tech newsletter, weekly newsletter, ${aboutText.toLowerCase()}, curated content, tech news`,
     openGraph: {
       title: title,
-      description: description,
+      description: enhancedDescription,
       type: 'article',
       siteName: 'blaze.email',
+      url: canonicalUrl,
+      publishedTime: latestNewsletter?.publishedat,
       images: [
         {
-          url: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://blaze.email'}/api/og?topic=${encodeURIComponent(params.topic)}&date=${encodeURIComponent(formattedDate || '')}`,
+          url: imageUrl,
           width: 1200,
           height: 630,
           alt: title,
@@ -59,11 +75,12 @@ export async function generateMetadata({ params }: { params: { topic: string } }
     twitter: {
       card: 'summary_large_image',
       title: title,
-      description: description,
-      images: [
-        `${process.env.NEXT_PUBLIC_BASE_URL || 'https://blaze.email'}/api/og?topic=${encodeURIComponent(params.topic)}&date=${encodeURIComponent(formattedDate || '')}`,
-      ],
+      description: enhancedDescription,
+      images: [imageUrl],
     },
+    alternates: {
+      canonical: canonicalUrl
+    }
   }
 }
 
@@ -94,30 +111,100 @@ export default async function TopicPage({ params }: { params: { topic: string } 
     }
   }
 
+  // Get normalized topic and detailed info
+  const normalizedTopic = params.topic.replace(/-/g, ' ')
+  const topicDetails = newsletters[normalizedTopic]
+  const aboutText = topicDetails?.about || normalizedTopic
+  
+  // Generate schema data for the newsletter
+  const schemaData = {
+    title: `${normalizedTopic} Newsletter - ${formattedDate || 'Weekly Edition'}`,
+    description: `Weekly curated ${normalizedTopic} newsletter featuring latest trends, research, tools, and articles about ${aboutText}`,
+    topic: normalizedTopic,
+    url: getCanonicalUrl(`/${params.topic}`),
+    publishedAt: latestNewsletter?.publishedat,
+    imageUrl: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://blaze.email'}/api/og?topic=${encodeURIComponent(params.topic)}&date=${encodeURIComponent(formattedDate || '')}`
+  }
+  
+  // Get related newsletters (excluding current one)
+  const relatedNewsletters = Object.entries(newsletters)
+    .filter(([topic]) => topic !== normalizedTopic)
+    .slice(0, 3) // Get at most 3 related newsletters
+
   return (
     <div className="py-6 md:py-16 relative container mx-auto px-1 sm:px-4">
+      <SchemaJsonLd schema={generateNewsletterSchema(schemaData)} />
       <BackButton />
       
-      <div className="pt-6 md:pt-8">
+      <div className="mt-4 pt-6 md:pt-8">
+        {/* Breadcrumbs navigation */}
+        <Breadcrumb 
+          items={[
+            { label: 'Home', path: '/' },
+            { label: normalizedTopic, path: `/${params.topic}`, isCurrent: true }
+          ]} 
+        />
+        
         <h1 className="text-3xl md:text-4xl font-bold mb-2 md:mb-3 text-center text-indigo-800 dark:text-indigo-200">
-          {params.topic.replace(/-/g, ' ')} Newsletter - {formattedDate ? formattedDate : "Weekly Edition"}
+          {normalizedTopic} Newsletter - {formattedDate ? formattedDate : "Weekly Edition"}
         </h1>
         <h2 className="text-xl md:text-2xl font-normal mb-3 md:mb-4 text-center text-indigo-700 dark:text-indigo-300">
-          Latest news in {newsletters[params.topic.replace(/-/g, ' ')]?.about || `${params.topic.replace(/-/g, ' ')}`}
+          Latest news in {aboutText}
         </h2>
         
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-3 sm:p-6 md:p-8 mb-3 md:mb-6">
           <h2 className="text-xl md:text-2xl font-semibold mb-2 md:mb-4 text-indigo-600 dark:text-indigo-300">
             Subscribe to this newsletter!
           </h2>
-          <SignupForm topic={params.topic.replace(/-/g, ' ')} />
+          <SignupForm topic={normalizedTopic} />
         </div>
         
         <LatestNewsletter newsletter={latestNewsletter} />
+        
+        {/* Related Newsletters Section */}
+        <section className="mt-12">
+          <h2 className="text-2xl font-semibold mb-6 text-indigo-700 dark:text-indigo-300">
+            You may also like
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {relatedNewsletters.map(([topic, details]) => (
+              <Link
+                key={topic}
+                href={`/${topic.replace(/\s+/g, '-')}`}
+                className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 hover:shadow-xl transition-all duration-300"
+              >
+                <h3 className="text-lg font-medium text-indigo-600 dark:text-indigo-300 mb-2">
+                  <span role="img" aria-label={`${topic} icon`}>{details.emoji}</span> {topic}
+                </h3>
+                <p className="text-sm text-gray-600 dark:text-gray-300">{details.about}</p>
+              </Link>
+            ))}
+          </div>
+        </section>
+        
+        {/* Topic Overview Section - Adds more content about the topic */}
+        <section className="mt-12 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+          <h2 className="text-2xl font-semibold mb-4 text-indigo-700 dark:text-indigo-300">
+            About {normalizedTopic}
+          </h2>
+          <div className="prose dark:prose-invert max-w-none">
+            <p className="mb-4">
+              Our {normalizedTopic} newsletter covers the latest developments, trends, tools, and insights in {aboutText.toLowerCase()}.
+              Each week, we curate the most important content so you don't have to spend hours searching.
+            </p>
+            <p className="mb-4">
+              Whether you're a beginner or expert in {normalizedTopic.toLowerCase()}, our newsletter provides valuable information
+              to keep you informed and ahead of the curve in this rapidly evolving field.
+            </p>
+            <p>
+              Subscribe now to join thousands of professionals who receive our weekly updates!
+            </p>
+          </div>
+        </section>
       </div>
       
       {/* Popup subscription form that appears when user scrolls near the bottom */}
-      <SubscriptionPopup topic={params.topic.replace(/-/g, ' ')} />
+      <SubscriptionPopup topic={normalizedTopic} />
     </div>
   )
 }
