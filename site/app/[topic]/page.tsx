@@ -135,7 +135,7 @@ export default async function TopicPage({ params }: { params: { topic: string } 
     .slice(0, 3) // Get at most 3 related newsletters
 
   return (
-    <div className="pt-0 pb-3 md:pb-8 relative container mx-auto px-1 sm:px-4">
+    <div className="pt-0 pb-3 md:pb-8 relative container mx-auto px-1 sm:px-4 z-0">
       <SchemaJsonLd schema={generateNewsletterSchema(schemaData)} />
       
       <div className="mt-0 pt-0">
