@@ -1,4 +1,4 @@
-import Link from "next/link"
+import { BackButton } from "@/components/BackButton"
 
 export default function AboutPage() {
   return (
@@ -17,14 +17,7 @@ export default function AboutPage() {
           I'd really appreciate any feedback you have on blaze or ways it might be improved - you can either drop me a line directly or add some <a href='https://95nowtw3un3.typeform.com/to/prerGYiP' className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-200 transition-colors">feedback using this anonymous typeform.</a>
         </p>
       </div>
-      <div className="text-center">
-        <Link
-          href="/"
-          className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-200 transition-colors"
-        >
-          ← Back home
-        </Link>
-      </div>
+      <BackButton />
     </div>
   )
 }

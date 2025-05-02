@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import Link from "next/link"
+import { BackButton } from "@/components/BackButton"
 import { newsletters } from "../newsletters"
 
 // get keys from newsletters object
@@ -108,14 +108,7 @@ export default function UnsubscribePage() {
             {message}
           </p>
         )}
-        <div className="mt-6 text-center">
-          <Link
-            href="/"
-            className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-200 transition-colors"
-          >
-            ← Back to Home
-          </Link>
-        </div>
+        <BackButton />
       </div>
     </div>
   )

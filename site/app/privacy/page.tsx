@@ -1,4 +1,5 @@
 import React from 'react';
+import { BackButton } from "@/components/BackButton";
 
 export default function PrivacyPolicy() {
   return (
@@ -84,6 +85,7 @@ export default function PrivacyPolicy() {
       <p className="text-lg text-gray-900 dark:text-gray-100 mb-4">
         You have the right to complain to your local data protection authority if you believe we have not handled your personal information in accordance with applicable law.
       </p>
+      <BackButton />
     </div>
   );
 }
