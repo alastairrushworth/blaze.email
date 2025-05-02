@@ -86,11 +86,31 @@ const config: Config = {
   				to: {
   					height: '0'
   				}
+  			},
+  			'slide-up': {
+  				'0%': {
+  					transform: 'translate(-50%, 20%)',
+  					opacity: '0'
+  				},
+  				'100%': {
+  					transform: 'translate(-50%, -50%)',
+  					opacity: '1'
+  				}
+  			},
+  			'fade-in': {
+  				'0%': {
+  					opacity: '0'
+  				},
+  				'100%': {
+  					opacity: '1'
+  				}
   			}
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
-  			'accordion-up': 'accordion-up 0.2s ease-out'
+  			'accordion-up': 'accordion-up 0.2s ease-out',
+  			'slideUp': 'slide-up 0.3s ease-out',
+  			'fadeIn': 'fade-in 0.3s ease-out'
   		}
   	}
   },
