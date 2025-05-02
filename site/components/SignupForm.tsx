@@ -33,7 +33,6 @@ export function SignupForm({ topic }: { topic: string }) {
     <form onSubmit={handleSubmit}>
       <div className="space-y-2">
         <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-          Email address
         </label>
         <div className="flex gap-4">
           <input
