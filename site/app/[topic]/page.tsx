@@ -1,3 +1,4 @@
+import { SubscriptionPopup } from "@/components/SubscriptionPopup"
 import { SignupForm } from "@/components/SignupForm"
 import { LatestNewsletter } from "@/components/LatestNewsletter"
 import { getLatestNewsletter } from '@/lib/db'
@@ -107,15 +108,9 @@ export default async function TopicPage({ params }: { params: { topic: string } 
         <SignupForm topic={params.topic.replace(/-/g, ' ')} />
       </div>
       <LatestNewsletter newsletter={latestNewsletter} />
-
-      {/* Bottom subscription box */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 mt-10">
-        <h2 className="text-2xl font-semibold mb-4 text-indigo-600 dark:text-indigo-300">
-          Don't miss next week's newsletter!
-        </h2>
-        <SignupForm topic={params.topic.replace(/-/g, ' ')} />
-      </div>
+      
+      {/* Popup subscription form that appears when user scrolls near the bottom */}
+      <SubscriptionPopup topic={params.topic.replace(/-/g, ' ')} />
     </div>
   )
 }
-
