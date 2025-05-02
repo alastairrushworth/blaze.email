@@ -18,8 +18,8 @@ export default function Breadcrumb({ items }: { items: BreadcrumbItem[] }) {
   return (
     <>
       <SchemaJsonLd schema={generateBreadcrumbSchema(schemaItems)} />
-      <nav aria-label="Breadcrumb" className="mb-6">
-        <ol className="flex flex-wrap items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
+      <nav aria-label="Breadcrumb" className="mb-4">
+        <ol className="flex flex-wrap items-center space-x-2 text-sm text-gray-500 dark:text-gray-400 h-9">
           {items.map((item, index) => (
             <li key={index} className="flex items-center">
               {index > 0 && (

@@ -1,7 +1,6 @@
 import { SubscriptionPopup } from "@/components/SubscriptionPopup"
 import { SignupForm } from "@/components/SignupForm"
 import { LatestNewsletter } from "@/components/LatestNewsletter"
-import { BackButton } from "@/components/BackButton"
 import Breadcrumb from "@/components/Breadcrumb"
 import SchemaJsonLd from "@/components/SchemaJsonLd"
 import { getLatestNewsletter } from '@/lib/db'
@@ -132,11 +131,10 @@ export default async function TopicPage({ params }: { params: { topic: string } 
     .slice(0, 3) // Get at most 3 related newsletters
 
   return (
-    <div className="py-6 md:py-16 relative container mx-auto px-1 sm:px-4">
+    <div className="py-3 md:py-8 relative container mx-auto px-1 sm:px-4">
       <SchemaJsonLd schema={generateNewsletterSchema(schemaData)} />
-      <BackButton />
       
-      <div className="mt-4 pt-6 md:pt-8">
+      <div className="mt-2 pt-2 md:pt-4">
         {/* Breadcrumbs navigation */}
         <Breadcrumb 
           items={[
@@ -187,16 +185,16 @@ export default async function TopicPage({ params }: { params: { topic: string } 
           <h2 className="text-2xl font-semibold mb-4 text-indigo-700 dark:text-indigo-300">
             About {normalizedTopic}
           </h2>
-          <div className="prose dark:prose-invert max-w-none">
-            <p className="mb-4">
+          <div className="max-w-none">
+            <p className="mb-4 text-gray-800 dark:text-gray-200">
               Our {normalizedTopic} newsletter covers the latest developments, trends, tools, and insights in {aboutText.toLowerCase()}.
               Each week, we curate the most important content so you don't have to spend hours searching.
             </p>
-            <p className="mb-4">
+            <p className="mb-4 text-gray-800 dark:text-gray-200">
               Whether you're a beginner or expert in {normalizedTopic.toLowerCase()}, our newsletter provides valuable information
               to keep you informed and ahead of the curve in this rapidly evolving field.
             </p>
-            <p>
+            <p className="text-gray-800 dark:text-gray-200">
               Subscribe now to join thousands of professionals who receive our weekly updates!
             </p>
           </div>
