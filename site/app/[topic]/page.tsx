@@ -97,7 +97,7 @@ export default async function TopicPage({ params }: { params: { topic: string } 
       <h1 className="text-4xl font-bold mb-3 text-center text-indigo-800 dark:text-indigo-200">
         {params.topic.replace(/-/g, ' ')} Newsletter - {formattedDate ? formattedDate : "Weekly Edition"}
       </h1>
-      <h2 className="text-2xl font-semibold mb-4 text-center text-indigo-700 dark:text-indigo-300">
+      <h2 className="text-2xl font-normal mb-4 text-center text-indigo-700 dark:text-indigo-300">
         Latest news in {newsletters[params.topic.replace(/-/g, ' ')]?.about || `${params.topic.replace(/-/g, ' ')}`}
       </h2>
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 mb-6">
