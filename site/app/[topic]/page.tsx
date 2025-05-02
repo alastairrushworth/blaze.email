@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: { params: { topic: string } }
   const normalizedTopic = params.topic.replace(/-/g, ' ')
   const aboutText = newsletters[normalizedTopic]?.about || `${normalizedTopic}`
 
-  const title = `${normalizedTopic} Newsletter - ${formattedDate || 'Weekly Edition'}`
+  const title = normalizedTopic
   const description = `A weekly roundup of ${aboutText}`
 
   // Enhanced description with more keywords
@@ -95,14 +95,18 @@ export default async function TopicPage({ params }: { params: { topic: string } 
   // Debug log to see what we're getting from the database
   console.log("Latest newsletter:", latestNewsletter)
 
-  // Format date as "dd-MM-yyyy" format
+  // Format dates
   let formattedDate = null
+  let formattedTextDate = null
   if (latestNewsletter?.publishedat) {
     try {
       const date = new Date(latestNewsletter.publishedat)
 
-      // Format the date as "dd-MM-yyyy" (e.g., "25-02-2025")
+      // Format the date as "dd-MM-yyyy" (e.g., "25-02-2025") for metadata
       formattedDate = format(date, "dd-MM-yyyy")
+      
+      // Format the date in text format (e.g., "19th May 2025") for display
+      formattedTextDate = format(date, "do MMMM yyyy")
     } catch (error) {
       console.error("Error formatting date:", error)
       // Fallback to a simpler format in case of error
@@ -117,7 +121,7 @@ export default async function TopicPage({ params }: { params: { topic: string } 
   
   // Generate schema data for the newsletter
   const schemaData = {
-    title: `${normalizedTopic} Newsletter - ${formattedDate || 'Weekly Edition'}`,
+    title: normalizedTopic,
     description: `Weekly curated ${normalizedTopic} newsletter featuring latest trends, research, tools, and articles about ${aboutText}`,
     topic: normalizedTopic,
     url: getCanonicalUrl(`/${params.topic}`),
@@ -131,10 +135,10 @@ export default async function TopicPage({ params }: { params: { topic: string } 
     .slice(0, 3) // Get at most 3 related newsletters
 
   return (
-    <div className="py-3 md:py-8 relative container mx-auto px-1 sm:px-4">
+    <div className="pt-0 pb-3 md:pb-8 relative container mx-auto px-1 sm:px-4">
       <SchemaJsonLd schema={generateNewsletterSchema(schemaData)} />
       
-      <div className="mt-2 pt-2 md:pt-4">
+      <div className="mt-0 pt-0">
         {/* Breadcrumbs navigation */}
         <Breadcrumb 
           items={[
@@ -144,11 +148,16 @@ export default async function TopicPage({ params }: { params: { topic: string } 
         />
         
         <h1 className="text-3xl md:text-4xl font-bold mb-2 md:mb-3 text-center text-indigo-800 dark:text-indigo-200">
-          {normalizedTopic} Newsletter - {formattedDate ? formattedDate : "Weekly Edition"}
+          {normalizedTopic}
         </h1>
-        <h2 className="text-xl md:text-2xl font-normal mb-3 md:mb-4 text-center text-indigo-700 dark:text-indigo-300">
+        <h2 className="text-base md:text-lg font-normal mb-1 md:mb-2 text-center text-indigo-700 dark:text-indigo-300">
           Latest news in {aboutText}
         </h2>
+        {formattedTextDate && (
+          <p className="text-sm md:text-base text-center text-gray-500 dark:text-gray-400 mb-3 md:mb-4">
+            {formattedTextDate}
+          </p>
+        )}
         
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-3 sm:p-6 md:p-8 mb-3 md:mb-6">
           <h2 className="text-xl md:text-2xl font-semibold mb-2 md:mb-4 text-indigo-600 dark:text-indigo-300">
@@ -169,12 +178,27 @@ export default async function TopicPage({ params }: { params: { topic: string } 
               <Link
                 key={topic}
                 href={`/${topic.replace(/\s+/g, '-')}`}
-                className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 hover:shadow-xl transition-all duration-300"
+                className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 hover:shadow-xl transition-all duration-300 relative cursor-pointer"
               >
                 <h3 className="text-lg font-medium text-indigo-600 dark:text-indigo-300 mb-2">
                   <span role="img" aria-label={`${topic} icon`}>{details.emoji}</span> {topic}
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-300">{details.about}</p>
+                
+                {/* Vertically centered arrow on right */}
+                <svg 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  className="h-4 w-4 text-indigo-400 dark:text-indigo-500 absolute top-1/2 -translate-y-1/2 right-4" 
+                  viewBox="0 0 20 20" 
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path 
+                    fillRule="evenodd" 
+                    d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" 
+                    clipRule="evenodd" 
+                  />
+                </svg>
               </Link>
             ))}
           </div>
