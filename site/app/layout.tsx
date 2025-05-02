@@ -41,7 +41,7 @@ export default function RootLayout({
           <div className="flex flex-col min-h-screen">
             <ThemeToggle />
             <main className="flex-grow">
-              <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">{children}</div>
+              <div className="max-w-5xl mx-auto px-1 sm:px-4 md:px-6 lg:px-8">{children}</div>
             </main>
             <Footer />
           </div>
