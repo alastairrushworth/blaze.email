@@ -46,7 +46,11 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <div className="flex flex-col min-h-screen">
             <SchemaJsonLd schema={generateOrganizationSchema()} />
-            <ThemeToggle />
+            <header className="relative pb-2">
+              <div className="max-w-5xl mx-auto px-1 sm:px-4 md:px-6 lg:px-8 relative">
+                <ThemeToggle />
+              </div>
+            </header>
             <main className="flex-grow">
               <div className="max-w-5xl mx-auto px-1 sm:px-4 md:px-6 lg:px-8">{children}</div>
             </main>
