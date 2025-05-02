@@ -1,6 +1,7 @@
 import { SubscriptionPopup } from "@/components/SubscriptionPopup"
 import { SignupForm } from "@/components/SignupForm"
 import { LatestNewsletter } from "@/components/LatestNewsletter"
+import { BackButton } from "@/components/BackButton"
 import { getLatestNewsletter } from '@/lib/db'
 import { format, parseISO } from 'date-fns'
 import { Metadata } from 'next'
@@ -94,20 +95,26 @@ export default async function TopicPage({ params }: { params: { topic: string } 
   }
 
   return (
-    <div className="py-16">
-      <h1 className="text-4xl font-bold mb-3 text-center text-indigo-800 dark:text-indigo-200">
-        {params.topic.replace(/-/g, ' ')} Newsletter - {formattedDate ? formattedDate : "Weekly Edition"}
-      </h1>
-      <h2 className="text-2xl font-normal mb-4 text-center text-indigo-700 dark:text-indigo-300">
-        Latest news in {newsletters[params.topic.replace(/-/g, ' ')]?.about || `${params.topic.replace(/-/g, ' ')}`}
-      </h2>
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 mb-6">
-        <h2 className="text-2xl font-semibold mb-4 text-indigo-600 dark:text-indigo-300">
-          Subscribe to this newsletter!
+    <div className="py-16 relative container mx-auto px-4">
+      <BackButton />
+      
+      <div className="pt-12 md:pt-8">
+        <h1 className="text-4xl font-bold mb-3 text-center text-indigo-800 dark:text-indigo-200">
+          {params.topic.replace(/-/g, ' ')} Newsletter - {formattedDate ? formattedDate : "Weekly Edition"}
+        </h1>
+        <h2 className="text-2xl font-normal mb-4 text-center text-indigo-700 dark:text-indigo-300">
+          Latest news in {newsletters[params.topic.replace(/-/g, ' ')]?.about || `${params.topic.replace(/-/g, ' ')}`}
         </h2>
-        <SignupForm topic={params.topic.replace(/-/g, ' ')} />
+        
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 mb-6">
+          <h2 className="text-2xl font-semibold mb-4 text-indigo-600 dark:text-indigo-300">
+            Subscribe to this newsletter!
+          </h2>
+          <SignupForm topic={params.topic.replace(/-/g, ' ')} />
+        </div>
+        
+        <LatestNewsletter newsletter={latestNewsletter} />
       </div>
-      <LatestNewsletter newsletter={latestNewsletter} />
       
       {/* Popup subscription form that appears when user scrolls near the bottom */}
       <SubscriptionPopup topic={params.topic.replace(/-/g, ' ')} />
