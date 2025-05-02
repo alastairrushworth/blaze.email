@@ -43,7 +43,12 @@ export default function RootLayout({
       <body
         className={`font-sans bg-gradient-to-br from-indigo-100 to-purple-100 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300`}
       >
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <ThemeProvider 
+          attribute="class" 
+          defaultTheme="system" 
+          enableSystem
+          disableTransitionOnChange
+        >
           <div className="flex flex-col min-h-screen">
             <SchemaJsonLd schema={generateOrganizationSchema()} />
             <header className="relative pb-2">
