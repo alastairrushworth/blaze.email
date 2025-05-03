@@ -1,5 +1,15 @@
 import React from 'react';
 import { BackButton } from "@/components/BackButton";
+import { Metadata } from 'next';
+import { getCanonicalUrl } from '@/lib/schema';
+
+export const metadata: Metadata = {
+  title: "Privacy Policy - blaze.email",
+  description: "Our privacy policy outlines how we collect, use, and protect your personal information at blaze.email",
+  alternates: {
+    canonical: getCanonicalUrl('/privacy')
+  }
+}
 
 export default function PrivacyPolicy() {
   return (

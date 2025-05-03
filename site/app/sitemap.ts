@@ -13,31 +13,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }));
   
-  // Static pages
+  // Only include the home page in the sitemap
+  // The about, privacy, and unsubscribe pages have canonical URLs pointing to the home page
+  // so they should not be included in the sitemap
   const staticPages = [
     {
       url: baseUrl,
       lastModified: currentDate,
       changeFrequency: 'daily' as const,
       priority: 1.0,
-    },
-    {
-      url: `${baseUrl}/about`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly' as const,
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/privacy`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly' as const,
-      priority: 0.5,
-    },
-    {
-      url: `${baseUrl}/unsubscribe`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly' as const,
-      priority: 0.5,
     },
   ];
   
