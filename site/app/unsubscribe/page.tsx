@@ -3,16 +3,9 @@
 import { useState } from "react"
 import { BackButton } from "@/components/BackButton"
 import { newsletters } from "../newsletters"
-import { Metadata } from 'next'
-import { getCanonicalUrl } from '@/lib/schema'
 
-export const metadata: Metadata = {
-  title: "Unsubscribe - blaze.email",
-  description: "Manage your newsletter subscriptions and unsubscribe from blaze.email newsletters",
-  alternates: {
-    canonical: getCanonicalUrl('/unsubscribe')
-  }
-}
+// Note: Metadata cannot be exported from client components
+// Metadata for this page should be defined in layout.tsx
 
 // get keys from newsletters object
 const newsletter_names = Object.keys(newsletters)
@@ -61,6 +54,7 @@ export default function UnsubscribePage() {
     <div className="py-16">
       <h1 className="text-5xl font-bold mb-8 text-center text-indigo-800 dark:text-indigo-200">Unsubscribe</h1>
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
+        <h2 className="text-2xl font-semibold mb-6 text-indigo-700 dark:text-indigo-300">Manage Your Newsletter Subscriptions</h2>
         <form onSubmit={handleUnsubscribe} className="space-y-6">
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
