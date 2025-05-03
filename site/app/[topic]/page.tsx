@@ -148,6 +148,7 @@ export default async function TopicPage({ params }: { params: { topic: string } 
         />
         
         <h1 className="text-3xl md:text-4xl font-bold mb-2 md:mb-3 text-center text-indigo-800 dark:text-indigo-200">
+          <span className="mr-2" role="img" aria-label={`${normalizedTopic} icon`}>{topicDetails?.emoji}</span>
           {normalizedTopic}
         </h1>
         <h2 className="text-base md:text-lg font-normal mb-1 md:mb-2 text-center text-indigo-700 dark:text-indigo-300">
