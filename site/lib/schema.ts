@@ -8,6 +8,7 @@ interface NewsletterData {
   publishedAt?: string;
   authorName?: string;
   imageUrl?: string;
+  keywords?: string;
 }
 
 /**
@@ -21,7 +22,8 @@ export function generateNewsletterSchema(data: NewsletterData) {
     url,
     publishedAt,
     authorName = 'blaze.email Team',
-    imageUrl
+    imageUrl,
+    keywords
   } = data;
 
   return {
@@ -29,6 +31,7 @@ export function generateNewsletterSchema(data: NewsletterData) {
     '@type': 'NewsArticle',
     headline: title,
     description: description,
+    keywords: keywords,
     image: imageUrl ? [imageUrl] : undefined,
     datePublished: publishedAt,
     dateModified: publishedAt,
