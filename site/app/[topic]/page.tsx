@@ -24,57 +24,42 @@ export async function generateMetadata({ params }: { params: { topic: string } }
     notFound()
   }
 
-  const latestNewsletter = await getLatestNewsletter(params.topic)
-
-  let formattedDate = null
-  if (latestNewsletter?.publishedat) {
-    try {
-      const date = new Date(latestNewsletter.publishedat)
-      formattedDate = format(date, "MMMM d, yyyy")
-    } catch (error) {
-      formattedDate = latestNewsletter.publishedat.toString().split('T')[0]
-    }
-  }
-
   const normalizedTopic = params.topic.replace(/-/g, ' ')
-  const aboutText = newsletters[normalizedTopic]?.about || `${normalizedTopic}`
+  const topicDetails = newsletters[normalizedTopic]
+  const aboutText = topicDetails?.about || normalizedTopic
+  
+  const latestNewsletter = await getLatestNewsletter(params.topic)
+  
+  // Format date for OG image
+  const formattedDate = latestNewsletter?.publishedat 
+    ? format(new Date(latestNewsletter.publishedat), "MMMM d, yyyy")
+    : null;
 
-  const title = normalizedTopic
-  const description = `A weekly roundup of ${aboutText}`
-
-  // Enhanced description with more keywords
-  const enhancedDescription = `${normalizedTopic} digest featuring ${aboutText}`
-
-  // Image URL for OG and Twitter cards
-  const imageUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'https://blaze.email'}/api/og?topic=${encodeURIComponent(params.topic)}&date=${encodeURIComponent(formattedDate || '')}`;
-
-  // Canonical URL
+  // Build URLs once and reuse
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://blaze.email'
+  const imageUrl = `${baseUrl}/api/og?topic=${encodeURIComponent(params.topic)}&date=${encodeURIComponent(formattedDate || '')}`;
   const canonicalUrl = getCanonicalUrl(`/${params.topic}`);
+  
+  // Description for meta tags
+  const description = `${normalizedTopic} digest featuring ${aboutText}`
 
   return {
-    title: title,
-    description: enhancedDescription,
-    keywords: newsletters[normalizedTopic]?.keywords,
+    title: normalizedTopic,
+    description,
+    keywords: topicDetails?.keywords,
     openGraph: {
-      title: title,
-      description: enhancedDescription,
+      title: normalizedTopic,
+      description,
       type: 'article',
       siteName: 'blaze.email',
       url: canonicalUrl,
       publishedTime: latestNewsletter?.publishedat,
-      images: [
-        {
-          url: imageUrl,
-          width: 1200,
-          height: 630,
-          alt: title,
-        },
-      ],
+      images: [{ url: imageUrl, width: 1200, height: 630, alt: normalizedTopic }],
     },
     twitter: {
       card: 'summary_large_image',
-      title: title,
-      description: enhancedDescription,
+      title: normalizedTopic,
+      description,
       images: [imageUrl],
     },
     alternates: {
@@ -89,47 +74,43 @@ export default async function TopicPage({ params }: { params: { topic: string } 
     notFound()
   }
 
-  // Commented out database fetch
+  // Get latest newsletter data
   const latestNewsletter = await getLatestNewsletter(params.topic)
-
-  // Debug log to see what we're getting from the database
-  console.log("Latest newsletter:", latestNewsletter)
-
-  // Format dates
-  let formattedDate = null
-  let formattedTextDate = null
-  if (latestNewsletter?.publishedat) {
-    try {
-      const date = new Date(latestNewsletter.publishedat)
-
-      // Format the date as "dd-MM-yyyy" (e.g., "25-02-2025") for metadata
-      formattedDate = format(date, "dd-MM-yyyy")
-
-      // Format the date in text format (e.g., "19th May 2025") for display
-      formattedTextDate = format(date, "do MMMM yyyy")
-    } catch (error) {
-      console.error("Error formatting date:", error)
-      // Fallback to a simpler format in case of error
-      formattedDate = latestNewsletter.publishedat.toString().split('T')[0]
-    }
-  }
-
-  // Get normalized topic and detailed info
+  
+  // Normalize topic and get details
   const normalizedTopic = params.topic.replace(/-/g, ' ')
   const topicDetails = newsletters[normalizedTopic]
   const aboutText = topicDetails?.about || normalizedTopic
-
-  // Generate schema data for the newsletter
+  
+  // Format dates
+  let formattedDate = null
+  let formattedTextDate = null
+  
+  if (latestNewsletter?.publishedat) {
+    try {
+      const date = new Date(latestNewsletter.publishedat)
+      formattedDate = format(date, "dd-MM-yyyy")
+      formattedTextDate = format(date, "do MMMM yyyy")
+    } catch (error) {
+      console.error("Error formatting date:", error)
+      formattedDate = latestNewsletter.publishedat.toString().split('T')[0]
+    }
+  }
+  
+  // Base URL for resources
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://blaze.email'
+  
+  // Schema data for SEO
   const schemaData = {
     title: normalizedTopic,
     description: `Weekly curated ${normalizedTopic} newsletter featuring latest trends, research, tools, and articles about ${aboutText}`,
     topic: normalizedTopic,
     url: getCanonicalUrl(`/${params.topic}`),
     publishedAt: latestNewsletter?.publishedat,
-    imageUrl: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://blaze.email'}/api/og?topic=${encodeURIComponent(params.topic)}&date=${encodeURIComponent(formattedDate || '')}`,
-    keywords: newsletters[normalizedTopic]?.keywords
+    imageUrl: `${baseUrl}/api/og?topic=${encodeURIComponent(params.topic)}&date=${encodeURIComponent(formattedDate || '')}`,
+    keywords: topicDetails?.keywords
   }
-
+  
   // Get related newsletters (excluding current one)
   const relatedNewsletters = Object.entries(newsletters)
     .filter(([topic]) => topic !== normalizedTopic)
