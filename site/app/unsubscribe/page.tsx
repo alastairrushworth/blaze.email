@@ -3,6 +3,16 @@
 import { useState } from "react"
 import { BackButton } from "@/components/BackButton"
 import { newsletters } from "../newsletters"
+import { Metadata } from 'next'
+import { getCanonicalUrl } from '@/lib/schema'
+
+export const metadata: Metadata = {
+  title: "Unsubscribe - blaze.email",
+  description: "Manage your newsletter subscriptions and unsubscribe from blaze.email newsletters",
+  alternates: {
+    canonical: getCanonicalUrl('/unsubscribe')
+  }
+}
 
 // get keys from newsletters object
 const newsletter_names = Object.keys(newsletters)

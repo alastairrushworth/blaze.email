@@ -1,4 +1,14 @@
 import { BackButton } from "@/components/BackButton"
+import { Metadata } from 'next'
+import { getCanonicalUrl } from '@/lib/schema'
+
+export const metadata: Metadata = {
+  title: "About blaze.email",
+  description: "Learn about blaze.email - an email newsletter service that automatically curates the best independent technical writing",
+  alternates: {
+    canonical: getCanonicalUrl('/about')
+  }
+}
 
 export default function AboutPage() {
   return (
