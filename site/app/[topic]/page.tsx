@@ -4,17 +4,16 @@ import { LatestNewsletter } from "@/components/LatestNewsletter"
 import Breadcrumb from "@/components/Breadcrumb"
 import SchemaJsonLd from "@/components/SchemaJsonLd"
 import { getLatestNewsletter } from '@/lib/db'
-import { format, parseISO } from 'date-fns'
+import { format } from 'date-fns'
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { newsletters } from '../newsletters'
 import Link from 'next/link'
 import { generateNewsletterSchema, getCanonicalUrl } from '@/lib/schema'
+import { newsletters, siteMetadata, formatTopicPath, normalizeTopicPath } from '../siteConfig'
 
 // Check if the topic exists in newsletters list
 function isValidTopic(topic: string): boolean {
-  const normalizedTopic = topic.replace(/-/g, ' ')
-  return Object.keys(newsletters).includes(normalizedTopic)
+  return Object.keys(newsletters).includes(normalizeTopicPath(topic))
 }
 
 // Generate dynamic metadata for each topic page
@@ -24,7 +23,7 @@ export async function generateMetadata({ params }: { params: { topic: string } }
     notFound()
   }
 
-  const normalizedTopic = params.topic.replace(/-/g, ' ')
+  const normalizedTopic = normalizeTopicPath(params.topic)
   const topicDetails = newsletters[normalizedTopic]
   const aboutText = topicDetails?.about || normalizedTopic
   
@@ -35,13 +34,10 @@ export async function generateMetadata({ params }: { params: { topic: string } }
     ? format(new Date(latestNewsletter.publishedat), "MMMM d, yyyy")
     : null;
 
-  // Build URLs once and reuse
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://blaze.email'
-  const imageUrl = `${baseUrl}/api/og?topic=${encodeURIComponent(params.topic)}&date=${encodeURIComponent(formattedDate || '')}`;
+  // Build URLs and descriptions
+  const imageUrl = `${siteMetadata.baseUrl}/api/og?topic=${encodeURIComponent(params.topic)}&date=${encodeURIComponent(formattedDate || '')}`;
   const canonicalUrl = getCanonicalUrl(`/${params.topic}`);
-  
-  // Description for meta tags
-  const description = `${normalizedTopic} digest featuring ${aboutText}`
+  const description = `${normalizedTopic} digest featuring ${aboutText}`;
 
   return {
     title: normalizedTopic,
@@ -51,7 +47,7 @@ export async function generateMetadata({ params }: { params: { topic: string } }
       title: normalizedTopic,
       description,
       type: 'article',
-      siteName: 'blaze.email',
+      siteName: siteMetadata.name,
       url: canonicalUrl,
       publishedTime: latestNewsletter?.publishedat,
       images: [{ url: imageUrl, width: 1200, height: 630, alt: normalizedTopic }],
@@ -78,7 +74,7 @@ export default async function TopicPage({ params }: { params: { topic: string } 
   const latestNewsletter = await getLatestNewsletter(params.topic)
   
   // Normalize topic and get details
-  const normalizedTopic = params.topic.replace(/-/g, ' ')
+  const normalizedTopic = normalizeTopicPath(params.topic)
   const topicDetails = newsletters[normalizedTopic]
   const aboutText = topicDetails?.about || normalizedTopic
   
@@ -97,9 +93,6 @@ export default async function TopicPage({ params }: { params: { topic: string } 
     }
   }
   
-  // Base URL for resources
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://blaze.email'
-  
   // Schema data for SEO
   const schemaData = {
     title: normalizedTopic,
@@ -107,7 +100,7 @@ export default async function TopicPage({ params }: { params: { topic: string } 
     topic: normalizedTopic,
     url: getCanonicalUrl(`/${params.topic}`),
     publishedAt: latestNewsletter?.publishedat,
-    imageUrl: `${baseUrl}/api/og?topic=${encodeURIComponent(params.topic)}&date=${encodeURIComponent(formattedDate || '')}`,
+    imageUrl: `${siteMetadata.baseUrl}/api/og?topic=${encodeURIComponent(params.topic)}&date=${encodeURIComponent(formattedDate || '')}`,
     keywords: topicDetails?.keywords
   }
   
@@ -143,9 +136,9 @@ export default async function TopicPage({ params }: { params: { topic: string } 
         )}
 
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-3 sm:p-6 md:p-8 mb-3 md:mb-6">
-          <h2 className="text-xl md:text-2xl font-semibold mb-2 md:mb-4 text-indigo-600 dark:text-indigo-300">
+          <h3 className="text-xl md:text-2xl font-semibold mb-2 md:mb-4 text-indigo-600 dark:text-indigo-300">
             Subscribe to this newsletter!
-          </h2>
+          </h3>
           <SignupForm topic={normalizedTopic} />
         </div>
 
@@ -160,7 +153,7 @@ export default async function TopicPage({ params }: { params: { topic: string } 
             {relatedNewsletters.map(([topic, details]) => (
               <Link
                 key={topic}
-                href={`/${topic.replace(/\s+/g, '-')}`}
+                href={`/${formatTopicPath(topic)}`}
                 className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 hover:shadow-xl transition-all duration-300 relative cursor-pointer"
               >
                 <h3 className="text-lg font-medium text-indigo-600 dark:text-indigo-300 mb-2">
