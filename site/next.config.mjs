@@ -52,6 +52,22 @@ const nextConfig = {
       },
     ];
   },
+  // Redirect www to non-www
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [
+          {
+            type: 'host',
+            value: 'www.blaze.email',
+          },
+        ],
+        destination: 'https://blaze.email/:path*',
+        permanent: true,
+      },
+    ];
+  },
 }
 
 mergeConfig(nextConfig, userConfig)
