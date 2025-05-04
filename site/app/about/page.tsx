@@ -1,4 +1,4 @@
-import { BackButton } from "@/components/BackButton"
+import BackButton from "@/components/BackButton"
 import { Metadata } from 'next'
 import { getCanonicalUrl } from '@/lib/schema'
 import { siteMetadata, aboutPageContent } from '../siteConfig'
@@ -33,7 +33,7 @@ export default function AboutPage() {
           using this <a href={aboutPageContent.contact.typeformUrl} className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-200 transition-colors">anonymous typeform.</a>
         </p>
       </div>
-      <BackButton />
+      <BackButton fixed={true} />
     </div>
   )
 }
