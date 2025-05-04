@@ -4,7 +4,7 @@
 // Site metadata
 export const siteMetadata = {
   name: 'Blaze Newsletters',
-  title: 'Smart Weekly Digests for Devs and Tech Professionals',
+  title: 'Weekly Digests for Devs & Tech Professionals',
   description: 'Subscribe to our free weekly tech newsletters covering AI, data science, machine learning, crypto, tech startups, and electronics.',
   baseUrl: process.env.NEXT_PUBLIC_BASE_URL || 'https://blaze.email',
   defaultKeywords: 'tech newsletters, AI newsletter, data science newsletter, machine learning newsletter, crypto newsletter, tech startups newsletter, weekly tech updates, free tech newsletter, electronics newsletter',
