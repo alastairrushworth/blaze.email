@@ -132,10 +132,7 @@ export default async function TopicPage({ params }: { params: { topic: string } 
           </p>
         )}
 
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-3 sm:p-6 md:p-8 mb-3 md:mb-6">
-          <h3 className="text-xl md:text-2xl font-semibold mb-2 md:mb-4 text-indigo-600 dark:text-indigo-300">
-            Subscribe to this newsletter!
-          </h3>
+        <div className="mb-6 md:mb-8">
           <SignupForm topic={normalizedTopic} />
         </div>
 
