@@ -1,6 +1,6 @@
 import { newsletters } from './siteConfig';
 import { MetadataRoute } from 'next';
-import { format, addDays, eachTuesdayOfInterval } from 'date-fns';
+import { format, addDays } from 'date-fns';
 
 // This is a static sitemap to avoid database queries during build
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -33,11 +33,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Add 90 days to ensure we have enough future dates for testing
   const extendedEndDate = addDays(endDate, 90);
   
-  // Get all Tuesdays in the range
-  const tuesdayDates = eachTuesdayOfInterval({
-    start: startDate,
-    end: extendedEndDate,
-  });
+  // Get all Tuesdays in the range by looping through dates
+  const tuesdayDates: Date[] = [];
+  const currentDate1 = new Date(startDate);
+  while (currentDate1 <= extendedEndDate) {
+    // 2 is Tuesday in JavaScript (0 is Sunday, 1 is Monday, etc.)
+    if (currentDate1.getDay() === 2) {
+      tuesdayDates.push(new Date(currentDate1));
+    }
+    currentDate1.setDate(currentDate1.getDate() + 1);
+  }
   
   // Generate archive URLs for these dates
   let archiveUrls: MetadataRoute.Sitemap = [];
