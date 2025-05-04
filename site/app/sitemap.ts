@@ -1,4 +1,4 @@
-import { newsletters } from './newsletters';
+import { newsletters } from './siteConfig';
 import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
