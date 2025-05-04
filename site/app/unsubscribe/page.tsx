@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { BackButton } from "@/components/BackButton"
+import BackButton from "@/components/BackButton"
 import { newsletters } from "../siteConfig"
 
 // Note: Metadata cannot be exported from client components
@@ -112,7 +112,7 @@ export default function UnsubscribePage() {
             {message}
           </p>
         )}
-        <BackButton />
+        <BackButton fixed={true} />
       </div>
     </div>
   )
