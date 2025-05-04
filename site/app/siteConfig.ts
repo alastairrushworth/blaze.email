@@ -17,37 +17,103 @@ export const siteMetadata = {
   }
 }
 
+// Newsletter interface for TypeScript type checking
+export interface Newsletter {
+  title: string;           // Main title display on the newsletter page
+  emoji: string;           // Emoji icon for the newsletter
+  about: string;           // Short description of the newsletter content
+  keywords: string;        // SEO keywords for the newsletter
+  description: string;     // Longer description for metadata and SEO
+  overview: {              // Content for the About section
+    content: string[];     // Paragraphs of text
+  };
+}
+
 // Newsletter definitions
-export const newsletters = {
+export const newsletters: Record<string, Newsletter> = {
   "Generative AI": {
-    'emoji': '🧠',
-    'about': 'AI research, LLMs and agentic product development.',
-    'keywords': 'AI news, LLMs, large language models, generative AI, agentic AI, finetuning, AI engineering',
+    title: "Generative AI",
+    emoji: '🧠',
+    about: 'Dev news and deep dives into LLMs and agentic AI',
+    keywords: 'AI news, LLMs, large language models, generative AI, agentic AI, finetuning, AI engineering',
+    description: 'Dev-focused digest featuring news and independent blogs - covering frontier LLMs, open source tools and AI product development',
+    overview: {
+      content: [
+        "Our Generative AI newsletter covers the latest developments, trends, tools, and insights in AI research, LLMs and agentic applications. Each week, we curate the most important content so you don't have to spend hours searching.",
+        "Whether you're a beginner or expert in generative AI, our newsletter provides valuable information to keep you informed and ahead of the curve in this rapidly evolving field.",
+        "Subscribe now to join thousands of professionals who receive our weekly updates!"
+      ]
+    }
   },
   "Data Scientist (with R)": {
-    'emoji': '📊',
-    'about': 'R programming, data science and community updates.',
-    'keywords': 'R programming, data science, R community, data analysis, data visualization, R packages',
+    title: "Data Scientist (with R)",
+    emoji: '📊',
+    about: 'Programming and data science for the R community',
+    keywords: 'R programming, data science, rstats, data analysis, data visualization, R packages, tidyverse, ggplot, cran, shiny, dplyr',
+    description: 'Weekly rstats newsletter for R users and data scientists - covering new CRAN packages, tutorials and community updates',
+    overview: {
+      content: [
+        "Our Data Scientist newsletter covers the latest developments, packages, techniques, and insights in R programming and data science. Each week, we curate the most important content so you don't have to spend hours searching.",
+        "Whether you're a beginner or expert in data science with R, our newsletter provides valuable information to keep you informed and ahead of the curve in this dynamic field.",
+        "Subscribe now to join thousands of professionals who receive our weekly updates!"
+      ]
+    }
   },
   "Tech and startups": {
-    'emoji': '🚀',
-    'about': 'Building companies, tech teams and products.',
-    'keywords': 'startups, entrepreneurship, tech news, product development, company building, tech teams',
+    title: "Tech and startups",
+    emoji: '🚀',
+    about: 'Startup news, entrepreneurship and product dev',
+    keywords: 'startups, entrepreneurship, tech news, product development, company building, tech teams',
+    description: 'Weekly curated Tech and startups newsletter featuring latest trends, funding news, product launches, and insights for entrepreneurs and tech professionals.',
+    overview: {
+      content: [
+        "Our Tech and startups newsletter covers the latest developments, funding rounds, product launches, and insights in building companies and tech products. Each week, we curate the most important content so you don't have to spend hours searching.",
+        "Whether you're a founder, investor, or tech professional, our newsletter provides valuable information to keep you informed and ahead of the curve in the fast-moving startup ecosystem.",
+        "Subscribe now to join thousands of professionals who receive our weekly updates!"
+      ]
+    }
   },
   "Machine Learning Engineer": {
-    'emoji': '🤖',
-    'about': 'ML research, models and engineering.',
-    'keywords': 'machine learning, ML research, ML engineering, model development, AI models, data science',
+    title: "Machine Learning Engineer",
+    emoji: '🤖',
+    about: 'ML models, MLOps and engineering',
+    keywords: 'machine learning, ML research, ML engineering, model development, AI models, data science',
+    description: 'Weekly curated Machine Learning Engineering newsletter featuring latest research papers, models, tools, and best practices for implementing ML systems.',
+    overview: {
+      content: [
+        "Our Machine Learning Engineer newsletter covers the latest developments, research papers, tools, and techniques in ML engineering and deployment. Each week, we curate the most important content so you don't have to spend hours searching.",
+        "Whether you're a beginner or expert in machine learning engineering, our newsletter provides valuable information to keep you informed and ahead of the curve in this technically challenging field.",
+        "Subscribe now to join thousands of professionals who receive our weekly updates!"
+      ]
+    }
   },
   "Crypto": {
-    'emoji': 'Ⲷ',
-    'about': 'Web3, DeFi and blockchain news.',
-    'keywords': 'cryptocurrency, blockchain, DeFi, Web3, crypto news, digital assets, decentralized finance',
+    title: "Crypto",
+    emoji: 'Ⲷ',
+    about: 'Web3, DeFi and blockchain news.',
+    keywords: 'cryptocurrency, blockchain, DeFi, Web3, crypto news, digital assets, decentralized finance',
+    description: 'Weekly curated Crypto newsletter featuring latest blockchain developments, DeFi projects, Web3 innovations, and market analysis.',
+    overview: {
+      content: [
+        "Our Crypto newsletter covers the latest developments, projects, and insights in Web3, DeFi, and blockchain technologies. Each week, we curate the most important content so you don't have to spend hours searching.",
+        "Whether you're a blockchain developer, investor, or crypto enthusiast, our newsletter provides valuable information to keep you informed and ahead of the curve in this rapidly evolving space.",
+        "Subscribe now to join thousands of professionals who receive our weekly updates!"
+      ]
+    }
   },
   "Electronics": {
-    'emoji': '🪛',
-    'about': 'Hardware hacking, DIY projects and retro computing.',
-    'keywords': 'electronics, hardware hacking, DIY projects, retro computing, maker culture, electronics projects',
+    title: "Electronics",
+    emoji: '🪛',
+    about: 'Hardware hacking, DIY projects and retro computing',
+    keywords: 'electronics, hardware hacking, DIY projects, retro computing, maker culture, electronics projects',
+    description: 'Weekly curated Electronics newsletter featuring latest hardware projects, DIY tutorials, retro computing news, and maker community updates.',
+    overview: {
+      content: [
+        "Our Electronics newsletter covers the latest developments, projects, and insights in hardware hacking, DIY electronics, and retro computing. Each week, we curate the most important content so you don't have to spend hours searching.",
+        "Whether you're a hardware engineer, maker, or electronics hobbyist, our newsletter provides valuable information to keep you informed and inspired for your next project.",
+        "Subscribe now to join thousands of professionals who receive our weekly updates!"
+      ]
+    }
   },
 }
 
