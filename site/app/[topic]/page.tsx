@@ -122,10 +122,12 @@ export default async function TopicPage({ params }: { params: { topic: string } 
           ]}
         />
 
-        <h1 className="text-3xl md:text-4xl font-bold mb-3 md:mb-4 text-center text-indigo-800 dark:text-indigo-200">
-          <span className="mr-2" role="img" aria-label={`${topicDetails?.title || normalizedTopic} icon`}>{topicDetails?.emoji}</span>
-          {topicDetails?.title || normalizedTopic}
-        </h1>
+        <div className="flex items-center justify-center mb-3 md:mb-4">
+          <span className="mr-2 text-3xl md:text-4xl" role="img" aria-label={`${topicDetails?.title || normalizedTopic} icon`}>{topicDetails?.emoji}</span>
+          <h1 className="text-3xl md:text-4xl font-bold text-indigo-800 dark:text-indigo-200">
+            {topicDetails?.title || normalizedTopic}
+          </h1>
+        </div>
         {formattedTextDate && (
           <p className="text-sm md:text-base text-center text-gray-500 dark:text-gray-400 mb-4 md:mb-5">
             {formattedTextDate}
@@ -157,7 +159,7 @@ export default async function TopicPage({ params }: { params: { topic: string } 
 
                 {/* Vertically centered arrow on right */}
                 <svg
-                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns="https://www.w3.org/2000/svg"
                   className="h-4 w-4 text-indigo-400 dark:text-indigo-500 absolute top-1/2 -translate-y-1/2 right-4"
                   viewBox="0 0 20 20"
                   fill="currentColor"

@@ -46,7 +46,9 @@ export default function Home() {
       <div className="py-16">
         <div className="flex justify-center items-center mb-4">
           <Image src={logo} alt="blaze.email logo" width={55} height={55} className="mr-2" priority />
-          <h1 className="text-5xl font-bold text-indigo-800 dark:text-indigo-200">{siteMetadata.name}</h1>
+          <div>
+            <h1 className="text-5xl font-bold text-indigo-800 dark:text-indigo-200">{siteMetadata.name}</h1>
+          </div>
         </div>
         <p className="text-xl text-center text-indigo-600 dark:text-indigo-300 mb-4">Weekly newsletter digests collating the best blogs and tech articles</p>
 
@@ -68,7 +70,7 @@ export default function Home() {
 
                 {/* Vertically centered arrow on right */}
                 <svg
-                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns="https://www.w3.org/2000/svg"
                   className="h-5 w-5 text-indigo-400 dark:text-indigo-500 absolute top-1/2 -translate-y-1/2 right-4"
                   viewBox="0 0 20 20"
                   fill="currentColor"

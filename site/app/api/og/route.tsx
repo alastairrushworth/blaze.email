@@ -26,7 +26,7 @@ function OGImage({ topic, date }: { topic: string; date: string }) {
     >
       {/* Logo at the top - using SVG directly instead of an external image */}
       <div style={{ position: 'absolute', top: '40px', left: '40px' }}>
-        <svg width="64" height="64" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="64" height="64" viewBox="0 0 200 200" fill="none" xmlns="https://www.w3.org/2000/svg">
           <path d="M100 20C80 40 70 70 90 100C110 130 100 160 80 180" stroke="#FFB74D" strokeWidth="15" strokeLinecap="round" />
           <path d="M100 20C120 40 130 70 110 100C90 130 100 160 120 180" stroke="#FF7FAB" strokeWidth="15" strokeLinecap="round" />
           <path d="M100 60C90 75 85 90 95 105C105 120 100 135 90 150" stroke="#A2F7E7" strokeWidth="15" strokeLinecap="round" />
