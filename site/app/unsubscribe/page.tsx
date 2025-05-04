@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { BackButton } from "@/components/BackButton"
-import { newsletters } from "../newsletters"
+import { newsletters } from "../siteConfig"
 
 // Note: Metadata cannot be exported from client components
 // Metadata for this page should be defined in layout.tsx
