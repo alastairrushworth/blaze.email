@@ -3,9 +3,9 @@
 
 // Site metadata
 export const siteMetadata = {
-  name: 'blaze.email',
-  title: 'Weekly Tech Newsletters for AI, Data Science & Tech',
-  description: 'Subscribe to our free weekly tech newsletters covering AI, data science, machine learning, crypto, tech startups, and electronics. Stay informed with curated content from industry experts.',
+  name: 'Blaze Newsletters',
+  title: 'Smart Weekly Digests for Devs and Tech Professionals',
+  description: 'Subscribe to our free weekly tech newsletters covering AI, data science, machine learning, crypto, tech startups, and electronics.',
   baseUrl: process.env.NEXT_PUBLIC_BASE_URL || 'https://blaze.email',
   defaultKeywords: 'tech newsletters, AI newsletter, data science newsletter, machine learning newsletter, crypto newsletter, tech startups newsletter, weekly tech updates, free tech newsletter, electronics newsletter',
   logo: '/logo.png',
@@ -21,7 +21,7 @@ export const siteMetadata = {
 export const newsletters = {
   "Generative AI": {
     'emoji': '🧠',
-    'about': 'AI research, LLMs and agentic applications.',
+    'about': 'AI research, LLMs and agentic product development.',
     'keywords': 'AI news, LLMs, large language models, generative AI, agentic AI, finetuning, AI engineering',
   },
   "Data Scientist (with R)": {
@@ -77,7 +77,7 @@ export const faqData = [
 
 // About page content
 export const aboutPageContent = {
-  title: "About blaze.email",
+  title: "About Blaze",
   mission: {
     title: "Our Mission",
     content: "Blaze is an email newsletter service that automatically curates the best independent technical writing from the past week into newsletter digests. We place a strong focus on discovery, and try to strike a balance between quality, relevance and diversity. The project was borne out of frustration with the traditional means of discovering and reading technical content."
