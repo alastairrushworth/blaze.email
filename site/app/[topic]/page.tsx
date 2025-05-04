@@ -37,24 +37,24 @@ export async function generateMetadata({ params }: { params: { topic: string } }
   // Build URLs and descriptions
   const imageUrl = `${siteMetadata.baseUrl}/api/og?topic=${encodeURIComponent(params.topic)}&date=${encodeURIComponent(formattedDate || '')}`;
   const canonicalUrl = getCanonicalUrl(`/${params.topic}`);
-  const description = `${normalizedTopic} digest featuring ${aboutText}`;
+  const description = topicDetails?.description || `${normalizedTopic} digest featuring ${aboutText}`;
 
   return {
-    title: normalizedTopic,
+    title: topicDetails?.title || normalizedTopic,
     description,
     keywords: topicDetails?.keywords,
     openGraph: {
-      title: normalizedTopic,
+      title: topicDetails?.title || normalizedTopic,
       description,
       type: 'article',
       siteName: siteMetadata.name,
       url: canonicalUrl,
       publishedTime: latestNewsletter?.publishedat,
-      images: [{ url: imageUrl, width: 1200, height: 630, alt: normalizedTopic }],
+      images: [{ url: imageUrl, width: 1200, height: 630, alt: topicDetails?.title || normalizedTopic }],
     },
     twitter: {
       card: 'summary_large_image',
-      title: normalizedTopic,
+      title: topicDetails?.title || normalizedTopic,
       description,
       images: [imageUrl],
     },
@@ -95,8 +95,8 @@ export default async function TopicPage({ params }: { params: { topic: string } 
   
   // Schema data for SEO
   const schemaData = {
-    title: normalizedTopic,
-    description: `Weekly curated ${normalizedTopic} newsletter featuring latest trends, research, tools, and articles about ${aboutText}`,
+    title: topicDetails?.title || normalizedTopic,
+    description: topicDetails?.description || `Weekly curated ${normalizedTopic} newsletter featuring latest trends, research, tools, and articles about ${aboutText}`,
     topic: normalizedTopic,
     url: getCanonicalUrl(`/${params.topic}`),
     publishedAt: latestNewsletter?.publishedat,
@@ -118,19 +118,16 @@ export default async function TopicPage({ params }: { params: { topic: string } 
         <Breadcrumb
           items={[
             { label: 'Home', path: '/' },
-            { label: normalizedTopic, path: `/${params.topic}`, isCurrent: true }
+            { label: topicDetails?.title || normalizedTopic, path: `/${params.topic}`, isCurrent: true }
           ]}
         />
 
-        <h1 className="text-3xl md:text-4xl font-bold mb-2 md:mb-3 text-center text-indigo-800 dark:text-indigo-200">
-          <span className="mr-2" role="img" aria-label={`${normalizedTopic} icon`}>{topicDetails?.emoji}</span>
-          {normalizedTopic}
+        <h1 className="text-3xl md:text-4xl font-bold mb-3 md:mb-4 text-center text-indigo-800 dark:text-indigo-200">
+          <span className="mr-2" role="img" aria-label={`${topicDetails?.title || normalizedTopic} icon`}>{topicDetails?.emoji}</span>
+          {topicDetails?.title || normalizedTopic}
         </h1>
-        <h2 className="text-base md:text-lg font-normal mb-1 md:mb-2 text-center text-indigo-700 dark:text-indigo-300">
-          Latest news in {aboutText}
-        </h2>
         {formattedTextDate && (
-          <p className="text-sm md:text-base text-center text-gray-500 dark:text-gray-400 mb-3 md:mb-4">
+          <p className="text-sm md:text-base text-center text-gray-500 dark:text-gray-400 mb-4 md:mb-5">
             {formattedTextDate}
           </p>
         )}
@@ -183,20 +180,29 @@ export default async function TopicPage({ params }: { params: { topic: string } 
         {/* Topic Overview Section - Adds more content about the topic */}
         <section className="mt-12 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
           <h2 className="text-2xl font-semibold mb-4 text-indigo-700 dark:text-indigo-300">
-            About {normalizedTopic}
+            About {topicDetails?.title || normalizedTopic}
           </h2>
           <div className="max-w-none">
-            <p className="mb-4 text-gray-800 dark:text-gray-200">
-              Our {normalizedTopic} newsletter covers the latest developments, trends, tools, and insights in {aboutText.toLowerCase()}.
-              Each week, we curate the most important content so you don't have to spend hours searching.
-            </p>
-            <p className="mb-4 text-gray-800 dark:text-gray-200">
-              Whether you're a beginner or expert in {normalizedTopic.toLowerCase()}, our newsletter provides valuable information
-              to keep you informed and ahead of the curve in this rapidly evolving field.
-            </p>
-            <p className="text-gray-800 dark:text-gray-200">
-              Subscribe now to join thousands of professionals who receive our weekly updates!
-            </p>
+            {topicDetails?.overview?.content?.map((paragraph, index) => (
+              <p key={index} className={`${index < topicDetails.overview.content.length - 1 ? 'mb-4' : ''} text-gray-800 dark:text-gray-200`}>
+                {paragraph}
+              </p>
+            )) || (
+              // Fallback content if overview is not defined
+              <>
+                <p className="mb-4 text-gray-800 dark:text-gray-200">
+                  Our {topicDetails?.title || normalizedTopic} newsletter covers the latest developments, trends, tools, and insights in {aboutText.toLowerCase()}.
+                  Each week, we curate the most important content so you don't have to spend hours searching.
+                </p>
+                <p className="mb-4 text-gray-800 dark:text-gray-200">
+                  Whether you're a beginner or expert in {(topicDetails?.title || normalizedTopic).toLowerCase()}, our newsletter provides valuable information
+                  to keep you informed and ahead of the curve in this rapidly evolving field.
+                </p>
+                <p className="text-gray-800 dark:text-gray-200">
+                  Subscribe now to join thousands of professionals who receive our weekly updates!
+                </p>
+              </>
+            )}
           </div>
         </section>
       </div>
