@@ -35,11 +35,11 @@ export const newsletters: Record<string, Newsletter> = {
     title: "Generative AI",
     emoji: '🧠',
     about: 'Dev news and deep dives into LLMs and agentic AI',
-    keywords: 'AI news, LLMs, large language models, generative AI, agentic AI, finetuning, AI engineering',
+    keywords: 'AI news, LLMs, large language models, generative AI, agentic AI, finetuning, AI engineering, python, openai, huggingface, langchain, llama, chatgpt, gpt-4, gpt-3.5',
     description: 'Dev-focused digest featuring news and independent blogs - covering frontier LLMs, open source tools and AI product development',
     overview: {
       content: [
-        "Our Generative AI newsletter covers the latest developments, trends, tools, and insights in AI research, LLMs and agentic applications. Each week, we curate the most important content so you don't have to spend hours searching.",
+        "Our Generative AI newsletter covers the latest developments, trends, tools, and insights in AI research, LLMs and agentic applications. Each week, we curate the most important content from over 50,000 blogs and news sites so you don't have to spend hours searching.",
         "Whether you're a beginner or expert in generative AI, our newsletter provides valuable information to keep you informed and ahead of the curve in this rapidly evolving field.",
         "Subscribe now to join thousands of professionals who receive our weekly updates!"
       ]
@@ -50,11 +50,11 @@ export const newsletters: Record<string, Newsletter> = {
     emoji: '📊',
     about: 'Programming and data science for the R community',
     keywords: 'R programming, data science, rstats, data analysis, data visualization, R packages, tidyverse, ggplot, cran, shiny, dplyr',
-    description: 'Weekly rstats newsletter for R users and data scientists - covering new CRAN packages, tutorials and community updates',
+    description: "Blaze's rstats newsletter for R users and data scientists - covering new CRAN packages, tutorials and community updates",
     overview: {
       content: [
-        "Our Data Scientist newsletter covers the latest developments, packages, techniques, and insights in R programming and data science. Each week, we curate the most important content so you don't have to spend hours searching.",
-        "Whether you're a beginner or expert in data science with R, our newsletter provides valuable information to keep you informed and ahead of the curve in this dynamic field.",
+        "Our Data Scientist newsletter covers the latest developments, packages, techniques, and insights in R programming and data science. Each week, we curate the most important content from your favourite R blogs so you don't have to spend hours searching.",
+        "Whether you're a beginner or expert in data science with R, our newsletter provides valuable information to keep you informed.",
         "Subscribe now to join thousands of professionals who receive our weekly updates!"
       ]
     }
@@ -63,8 +63,8 @@ export const newsletters: Record<string, Newsletter> = {
     title: "Tech and startups",
     emoji: '🚀',
     about: 'Startup news, entrepreneurship and product dev',
-    keywords: 'startups, entrepreneurship, tech news, product development, company building, tech teams',
-    description: 'Weekly curated Tech and startups newsletter featuring latest trends, funding news, product launches, and insights for entrepreneurs and tech professionals.',
+    keywords: 'startups, entrepreneurship, tech news, product development, company building, tech teams, VC funding',
+    description: "Blaze's tech and startups newsletter covers funding news, product launches, and insights for entrepreneurs and tech professionals.",
     overview: {
       content: [
         "Our Tech and startups newsletter covers the latest developments, funding rounds, product launches, and insights in building companies and tech products. Each week, we curate the most important content so you don't have to spend hours searching.",
@@ -77,8 +77,8 @@ export const newsletters: Record<string, Newsletter> = {
     title: "Machine Learning Engineer",
     emoji: '🤖',
     about: 'ML models, MLOps and engineering',
-    keywords: 'machine learning, ML research, ML engineering, model development, AI models, data science',
-    description: 'Weekly curated Machine Learning Engineering newsletter featuring latest research papers, models, tools, and best practices for implementing ML systems.',
+    keywords: 'machine learning, MLOps, ML inference, python, mlflow, ML engineering, model development, LLMs, data science',
+    description: "Blaze's ML Engineering newsletter features blogs on models, tools, best practices for implementing ML systems and the latest from arxiv.org",
     overview: {
       content: [
         "Our Machine Learning Engineer newsletter covers the latest developments, research papers, tools, and techniques in ML engineering and deployment. Each week, we curate the most important content so you don't have to spend hours searching.",
@@ -92,11 +92,11 @@ export const newsletters: Record<string, Newsletter> = {
     emoji: 'Ⲷ',
     about: 'Web3, DeFi and blockchain news.',
     keywords: 'cryptocurrency, blockchain, DeFi, Web3, crypto news, digital assets, decentralized finance',
-    description: 'Weekly curated Crypto newsletter featuring latest blockchain developments, DeFi projects, Web3 innovations, and market analysis.',
+    description: "Blaze's Crypto newsletter featuring latest blockchain developments, DeFi projects, Web3 innovations, and market analysis.",
     overview: {
       content: [
         "Our Crypto newsletter covers the latest developments, projects, and insights in Web3, DeFi, and blockchain technologies. Each week, we curate the most important content so you don't have to spend hours searching.",
-        "Whether you're a blockchain developer, investor, or crypto enthusiast, our newsletter provides valuable information to keep you informed and ahead of the curve in this rapidly evolving space.",
+        "Whether you're a blockchain developer, investor, or crypto enthusiast, our newsletter provides valuable information to keep you informed and ahead of the curve.",
         "Subscribe now to join thousands of professionals who receive our weekly updates!"
       ]
     }
@@ -105,8 +105,8 @@ export const newsletters: Record<string, Newsletter> = {
     title: "Electronics",
     emoji: '🪛',
     about: 'Hardware hacking, DIY projects and retro computing',
-    keywords: 'electronics, hardware hacking, DIY projects, retro computing, maker culture, electronics projects',
-    description: 'Weekly curated Electronics newsletter featuring latest hardware projects, DIY tutorials, retro computing news, and maker community updates.',
+    keywords: 'electronics, raspberry pi, arduino, hardware hacking, DIY projects, retro computing, maker culture, electronics projects',
+    description: "Blaze's Electronics newsletter featuring latest hardware projects, DIY tutorials, retro computing news, and maker community updates.",
     overview: {
       content: [
         "Our Electronics newsletter covers the latest developments, projects, and insights in hardware hacking, DIY electronics, and retro computing. Each week, we curate the most important content so you don't have to spend hours searching.",
