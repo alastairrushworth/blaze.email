@@ -49,7 +49,7 @@ export function SignupForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className={compact ? "w-full" : "max-w-xl mx-auto"}>
+    <form onSubmit={handleSubmit} className={compact ? "w-full" : "max-w-md mx-auto"}>
       <div className="flex flex-col">
         <div className="flex w-full overflow-hidden rounded-md border border-gray-300 dark:border-gray-600 focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500">
           <input
