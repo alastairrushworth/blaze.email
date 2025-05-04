@@ -37,7 +37,7 @@ export default function Home() {
       <SchemaJsonLd schema={generateFAQSchema(faqData)} />
       <div className="py-16">
         <div className="flex justify-center items-center mb-4">
-          <Image src={logo} alt="blaze.email logo" width={55} height={55} className="mr-2" priority />
+          <Image src={logo} alt="blaze.email logo" width={55} height={55} className="mr-2" />
           <div>
             <h1 className="text-5xl font-bold text-indigo-800 dark:text-indigo-200">{siteMetadata.name}</h1>
           </div>
