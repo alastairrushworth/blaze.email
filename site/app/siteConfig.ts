@@ -115,6 +115,36 @@ export const newsletters: Record<string, Newsletter> = {
       ]
     }
   },
+  "Quantum Computing": {
+    title: "Quantum Computing",
+    emoji: '⚛️',
+    about: 'Quantum computing, algorithms, hardware amd research',
+    keywords: 'quantum computing, quantum algorithms, quantum hardware, quantum research, qubits, quantum supremacy',
+    description: "Blaze's Quantum Computing newsletter featuring latest research, algorithms, hardware developments, and quantum community updates.",
+    overview: {
+      content: [
+        "Our Quantum Computing newsletter covers the latest developments, research papers, and insights in quantum computing technologies. Each week, we curate the most important content so you don't have to spend hours searching.",
+        "Whether you're a quantum researcher, developer, or enthusiast, our newsletter provides valuable information to keep you informed and ahead of the curve in this rapidly evolving field.",
+        "Subscribe now to join thousands of professionals who receive our weekly updates!"
+      ]
+    }
+  },
+
+  "The Mathematician":
+  {
+    title: "The Mathematician",
+    emoji: '🧮',
+    about: 'Blogs, articles and research papers in mathematics',
+    keywords: 'mathematics, statistics, data science, math blogs, math research, applied mathematics',
+    description: "Blaze's The Mathematician newsletter featuring latest research, tutorials, and insights in mathematics and statistics.",
+    overview: {
+      content: [
+        "Our The Mathematician newsletter covers the latest developments, research papers, and insights in mathematics and statistics. Each week, we curate the most important content so you don't have to spend hours searching.",
+        "Whether you're a mathematician, statistician, or data scientist, our newsletter provides valuable information to keep you informed and ahead of the curve in this intellectually stimulating field.",
+        "Subscribe now to join thousands of professionals who receive our weekly updates!"
+      ]
+    }
+  }
 }
 
 // FAQ content
