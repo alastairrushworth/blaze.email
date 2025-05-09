@@ -27,6 +27,7 @@ export interface Newsletter {
   overview: {              // Content for the About section
     content: string[];     // Paragraphs of text
   };
+  related?: string[];      // List of related newsletters (topic keys)
 }
 
 // Newsletter definitions
@@ -43,7 +44,8 @@ export const newsletters: Record<string, Newsletter> = {
         "Whether you're a beginner or expert in generative AI, our newsletter provides valuable information to keep you informed and ahead of the curve in this rapidly evolving field.",
         "Subscribe now to join thousands of professionals who receive our weekly updates!"
       ]
-    }
+    },
+    related: ["Machine Learning Engineer", "The Mathematician", "Tech and startups"]
   },
   "Data Scientist (with R)": {
     title: "Data Scientist (with R)",
@@ -57,7 +59,8 @@ export const newsletters: Record<string, Newsletter> = {
         "Whether you're a beginner or expert in data science with R, our newsletter provides valuable information to keep you informed.",
         "Subscribe now to join thousands of professionals who receive our weekly updates!"
       ]
-    }
+    },
+    related: ["Machine Learning Engineer", "The Mathematician", "Generative AI"]
   },
   "Tech and startups": {
     title: "Tech and startups",
@@ -71,7 +74,8 @@ export const newsletters: Record<string, Newsletter> = {
         "Whether you're a founder, investor, or tech professional, our newsletter provides valuable information to keep you informed and ahead of the curve in the fast-moving startup ecosystem.",
         "Subscribe now to join thousands of professionals who receive our weekly updates!"
       ]
-    }
+    },
+    related: ["Generative AI", "Crypto", "Electronics"]
   },
   "Machine Learning Engineer": {
     title: "Machine Learning Engineer",
@@ -85,7 +89,8 @@ export const newsletters: Record<string, Newsletter> = {
         "Whether you're a beginner or expert in machine learning engineering, our newsletter provides valuable information to keep you informed and ahead of the curve in this technically challenging field.",
         "Subscribe now to join thousands of professionals who receive our weekly updates!"
       ]
-    }
+    },
+    related: ["Generative AI", "Data Scientist (with R)", "Quantum Computing"]
   },
   "Crypto": {
     title: "Crypto",
@@ -99,7 +104,8 @@ export const newsletters: Record<string, Newsletter> = {
         "Whether you're a blockchain developer, investor, or crypto enthusiast, our newsletter provides valuable information to keep you informed and ahead of the curve.",
         "Subscribe now to join thousands of professionals who receive our weekly updates!"
       ]
-    }
+    },
+    related: ["Tech and startups", "Quantum Computing", "The Mathematician"]
   },
   "Electronics": {
     title: "Electronics",
@@ -113,7 +119,8 @@ export const newsletters: Record<string, Newsletter> = {
         "Whether you're a hardware engineer, maker, or electronics hobbyist, our newsletter provides valuable information to keep you informed and inspired for your next project.",
         "Subscribe now to join thousands of professionals who receive our weekly updates!"
       ]
-    }
+    },
+    related: ["Tech and startups", "Quantum Computing", "Machine Learning Engineer"]
   },
   "Quantum Computing": {
     title: "Quantum Computing",
@@ -127,7 +134,8 @@ export const newsletters: Record<string, Newsletter> = {
         "Whether you're a quantum researcher, developer, or enthusiast, our newsletter provides valuable information to keep you informed and ahead of the curve in this rapidly evolving field.",
         "Subscribe now to join thousands of professionals who receive our weekly updates!"
       ]
-    }
+    },
+    related: ["Generative AI", "Machine Learning Engineer", "The Mathematician"]
   },
 
   "The Mathematician":
@@ -143,7 +151,8 @@ export const newsletters: Record<string, Newsletter> = {
         "Whether you're a mathematician, statistician, or data scientist, our newsletter provides valuable information to keep you informed and ahead of the curve in this intellectually stimulating field.",
         "Subscribe now to join thousands of professionals who receive our weekly updates!"
       ]
-    }
+    },
+    related: ["Data Scientist (with R)", "Quantum Computing", "Machine Learning Engineer"]
   }
 }
 
