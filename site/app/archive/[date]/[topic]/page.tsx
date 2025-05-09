@@ -164,15 +164,15 @@ export default async function ArchiveNewsletterPage({ params }: { params: { topi
           ]}
         />
 
-        <div className="flex items-center justify-center mb-3 md:mb-4">
+        <div className="mt-3 flex items-center justify-center mb-3 md:mb-4">
           <span className="mr-2 text-3xl md:text-4xl" role="img" aria-label={`${topicDetails?.title || normalizedTopic} icon`}>{topicDetails?.emoji}</span>
           <h1 className="text-3xl md:text-4xl font-bold text-indigo-800 dark:text-indigo-200">
             {topicDetails?.title || normalizedTopic}
           </h1>
         </div>
         
-        <p className="text-sm md:text-base text-center text-gray-500 dark:text-gray-400 mb-4 md:mb-5">
-          {formattedTextDate}
+        <p className="text-sm md:text-base text-left text-gray-500 dark:text-gray-400 mb-2 md:mb-3">
+          Published {formattedTextDate}
         </p>
 
         <div className="mb-6">
