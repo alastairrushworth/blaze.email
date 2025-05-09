@@ -3,12 +3,16 @@ import Breadcrumb from "@/components/Breadcrumb"
 import SchemaJsonLd from "@/components/SchemaJsonLd"
 import { SignupForm } from "@/components/SignupForm"
 import { SubscriptionPopup } from "@/components/SubscriptionPopup"
+import { RelatedNewsletters } from "@/components/RelatedNewsletters"
+import { TopicAbout } from "@/components/TopicAbout"
+import { NewsletterNavigation } from "@/components/NewsletterNavigation"
 import { getNewsletterByDate, getNewsletterArchive } from '@/lib/db'
 import { format, parse } from 'date-fns'
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { generateNewsletterSchema, getCanonicalUrl } from '@/lib/schema'
+import { findAdjacentNewsletters } from '@/lib/newsletter-utils'
 import { newsletters, siteMetadata, normalizeTopicPath, formatTopicPath } from '../../../siteConfig'
 
 // Check if the topic exists in newsletters list
@@ -141,38 +145,8 @@ export default async function ArchiveNewsletterPage({ params }: { params: { topi
   // Get all newsletters for navigation
   const archiveNewsletters = await getNewsletterArchive(params.topic, '2025-04-01');
   
-  // Find the current newsletter's index in the archive
-  let currentIndex = -1;
-  let prevNewsletter = null;
-  let nextNewsletter = null;
-  
-  if (archiveNewsletters && archiveNewsletters.length > 0) {
-    // Find the current newsletter's index
-    for (let i = 0; i < archiveNewsletters.length; i++) {
-      const archiveDate = new Date(archiveNewsletters[i].publishedat);
-      if (
-        archiveDate.getFullYear() === newsletterDate.getFullYear() &&
-        archiveDate.getMonth() === newsletterDate.getMonth() &&
-        archiveDate.getDate() === newsletterDate.getDate()
-      ) {
-        currentIndex = i;
-        break;
-      }
-    }
-    
-    // In archive array, index 0 is newest, higher indexes are older
-    // So "newer" is lower index, "older" is higher index
-    
-    if (currentIndex > 0) {
-      // There's a newer newsletter (smaller index = more recent)
-      nextNewsletter = archiveNewsletters[currentIndex - 1];
-    }
-    
-    if (currentIndex < archiveNewsletters.length - 1 && currentIndex !== -1) {
-      // There's an older newsletter (larger index = older)
-      prevNewsletter = archiveNewsletters[currentIndex + 1];
-    }
-  }
+  // Find adjacent newsletters (previous and next)
+  const { prevNewsletter, nextNewsletter } = findAdjacentNewsletters(archiveNewsletters, newsletterDate);
   
   // Normalize topic and get details
   const normalizedTopic = normalizeTopicPath(params.topic)
@@ -223,115 +197,23 @@ export default async function ArchiveNewsletterPage({ params }: { params: { topi
         </div>
         
         {/* Navigation buttons - just at the top */}
-        <div className="mb-4 md:mb-6 flex justify-end space-x-4">
-          {/* Newer button (points left toward more recent newsletters) */}
-          {nextNewsletter && (
-            <Link 
-              href={`/${params.topic}/archive/${format(new Date(nextNewsletter.publishedat), "yyyy-MM-dd")}`}
-              className="inline-flex items-center justify-center py-2 px-4 rounded-lg bg-white dark:bg-gray-800 shadow transition-colors hover:bg-indigo-50 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200"
-            >
-              <svg 
-                xmlns="https://www.w3.org/2000/svg" 
-                className="h-4 w-4 mr-1.5" 
-                fill="none" 
-                viewBox="0 0 24 24" 
-                stroke="currentColor"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-              <span className="text-sm font-medium">Newer</span>
-            </Link>
-          )}
-          
-          {/* Older button (points right toward older newsletters) */}
-          {prevNewsletter && (
-            <Link 
-              href={`/${params.topic}/archive/${format(new Date(prevNewsletter.publishedat), "yyyy-MM-dd")}`}
-              className="inline-flex items-center justify-center py-2 px-4 rounded-lg bg-white dark:bg-gray-800 shadow transition-colors hover:bg-indigo-50 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200"
-            >
-              <span className="text-sm font-medium">Older</span>
-              <svg 
-                xmlns="https://www.w3.org/2000/svg" 
-                className="h-4 w-4 ml-1.5" 
-                fill="none" 
-                viewBox="0 0 24 24" 
-                stroke="currentColor"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
-          )}
-        </div>
+        <NewsletterNavigation 
+          topic={params.topic} 
+          prevNewsletter={prevNewsletter} 
+          nextNewsletter={nextNewsletter} 
+        />
 
         <LatestNewsletter newsletter={newsletter} />
         
         {/* Related Newsletters Section */}
-        <section className="mt-12">
-          <h2 className="text-2xl font-semibold mb-6 text-indigo-700 dark:text-indigo-300">
-            You may also like
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {Object.entries(newsletters)
-              .filter(([topic]) => normalizeTopicPath(topic) !== normalizedTopic)
-              .slice(0, 3)
-              .map(([topic, details]) => (
-                <Link
-                  key={topic}
-                  href={`/${formatTopicPath(topic)}`}
-                  className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 hover:shadow-xl transition-all duration-300 relative cursor-pointer"
-                >
-                  <h3 className="text-lg font-medium text-indigo-600 dark:text-indigo-300 mb-2">
-                    <span role="img" aria-label={`${topic} icon`}>{details.emoji}</span> {topic}
-                  </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-300">{details.about}</p>
+        <RelatedNewsletters currentTopic={normalizedTopic} />
 
-                  {/* Vertically centered arrow on right */}
-                  <svg
-                    xmlns="https://www.w3.org/2000/svg"
-                    className="h-4 w-4 text-indigo-400 dark:text-indigo-500 absolute top-1/2 -translate-y-1/2 right-4"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </Link>
-              ))}
-          </div>
-        </section>
-
-        {/* Topic Overview Section - Adds more content about the topic */}
-        <section className="mt-12 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-          <h2 className="text-2xl font-semibold mb-4 text-indigo-700 dark:text-indigo-300">
-            About {topicDetails?.title || normalizedTopic}
-          </h2>
-          <div className="max-w-none">
-            {topicDetails?.overview?.content?.map((paragraph, index) => (
-              <p key={index} className={`${index < topicDetails.overview.content.length - 1 ? 'mb-4' : ''} text-gray-800 dark:text-gray-200`}>
-                {paragraph}
-              </p>
-            )) || (
-              // Fallback content if overview is not defined
-              <>
-                <p className="mb-4 text-gray-800 dark:text-gray-200">
-                  Our {topicDetails?.title || normalizedTopic} newsletter covers the latest developments, trends, tools, and insights in {aboutText.toLowerCase()}.
-                  Each week, we curate the most important content so you don't have to spend hours searching.
-                </p>
-                <p className="mb-4 text-gray-800 dark:text-gray-200">
-                  Whether you're a beginner or expert in {(topicDetails?.title || normalizedTopic).toLowerCase()}, our newsletter provides valuable information
-                  to keep you informed and ahead of the curve in this rapidly evolving field.
-                </p>
-                <p className="text-gray-800 dark:text-gray-200">
-                  Subscribe now to join thousands of professionals who receive our weekly updates!
-                </p>
-              </>
-            )}
-          </div>
-        </section>
+        {/* Topic Overview Section */}
+        <TopicAbout 
+          topicDetails={topicDetails} 
+          normalizedTopic={normalizedTopic} 
+          aboutText={aboutText} 
+        />
       </div>
 
       {/* Popup subscription form that appears when user scrolls near the bottom */}
