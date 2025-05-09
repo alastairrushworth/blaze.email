@@ -60,9 +60,10 @@ const nextConfig = {
       },
     ];
   },
-  // Redirect www to non-www
+  // Redirects configuration
   async redirects() {
     return [
+      // Redirect www to non-www
       {
         source: '/:path*',
         has: [
@@ -72,6 +73,12 @@ const nextConfig = {
           },
         ],
         destination: 'https://blaze.email/:path*',
+        permanent: true,
+      },
+      // Redirect old archive URLs to new format
+      {
+        source: '/archive/:date/:topic',
+        destination: '/:topic/archive/:date',
         permanent: true,
       },
     ];

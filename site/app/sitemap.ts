@@ -52,9 +52,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const formattedTopic = topic.replace(/\s+/g, '-');
     
     tuesdayDates.forEach(date => {
-      const formattedDate = format(date, "dd-MM-yyyy");
+      const formattedDate = format(date, "yyyy-MM-dd");
       archiveUrls.push({
-        url: `${baseUrl}/archive/${formattedDate}/${formattedTopic}`,
+        url: `${baseUrl}/${formattedTopic}/archive/${formattedDate}`,
         lastModified: date.toISOString(),
         changeFrequency: 'monthly' as const,
         priority: 0.7,

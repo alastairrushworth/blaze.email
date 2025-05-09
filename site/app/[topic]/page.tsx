@@ -173,13 +173,13 @@ export default async function TopicPage({ params }: { params: { topic: string } 
                   return null;
                 }
                 
-                const formattedArchiveDate = format(newsletterDate, "dd-MM-yyyy");
+                const formattedArchiveDate = format(newsletterDate, "yyyy-MM-dd");
                 const displayDate = format(newsletterDate, "do MMMM yyyy");
                 
                 return (
                   <Link 
                     key={formattedArchiveDate}
-                    href={`/archive/${formattedArchiveDate}/${params.topic}`}
+                    href={`/${params.topic}/archive/${formattedArchiveDate}`}
                     className="p-3 border border-gray-200 dark:border-gray-700 rounded hover:bg-indigo-50 dark:hover:bg-gray-700 transition-colors"
                   >
                     <div className="flex items-center">
