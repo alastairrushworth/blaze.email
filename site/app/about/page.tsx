@@ -6,6 +6,30 @@ import { siteMetadata, aboutPageContent } from '../siteConfig'
 export const metadata: Metadata = {
   title: `About ${siteMetadata.name}`,
   description: "Learn about blaze.email - an email newsletter service that automatically curates the best independent technical writing",
+  openGraph: {
+    title: `About ${siteMetadata.name}`,
+    description: "Learn about blaze.email - an email newsletter service that automatically curates the best independent technical writing",
+    type: 'website',
+    siteName: siteMetadata.name,
+    locale: 'en_US',
+    url: getCanonicalUrl('/about'),
+    images: [
+      {
+        url: `${siteMetadata.baseUrl}/api/og?topic=About`,
+        width: 1200, 
+        height: 630,
+        alt: `About ${siteMetadata.name}`,
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: `About ${siteMetadata.name}`,
+    description: "Learn about blaze.email - an email newsletter service that automatically curates the best independent technical writing",
+    images: [`${siteMetadata.baseUrl}/api/og?topic=About`],
+    creator: '@blazeemail',
+    site: '@blazeemail',
+  },
   alternates: {
     canonical: getCanonicalUrl('/about')
   }

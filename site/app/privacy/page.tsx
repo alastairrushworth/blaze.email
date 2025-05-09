@@ -6,6 +6,30 @@ import { getCanonicalUrl } from '@/lib/schema';
 export const metadata: Metadata = {
   title: "Privacy Policy - Blaze",
   description: "Our privacy policy outlines how we collect, use, and protect your personal information at blaze.email",
+  openGraph: {
+    title: "Privacy Policy - Blaze",
+    description: "Our privacy policy outlines how we collect, use, and protect your personal information at blaze.email",
+    type: 'website',
+    siteName: 'Blaze Newsletters',
+    locale: 'en_US',
+    url: getCanonicalUrl('/privacy'),
+    images: [
+      {
+        url: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://blaze.email'}/api/og?topic=Privacy`,
+        width: 1200, 
+        height: 630,
+        alt: 'Privacy Policy - Blaze',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "Privacy Policy - Blaze",
+    description: "Our privacy policy outlines how we collect, use, and protect your personal information at blaze.email",
+    images: [`${process.env.NEXT_PUBLIC_BASE_URL || 'https://blaze.email'}/api/og?topic=Privacy`],
+    creator: '@blazeemail',
+    site: '@blazeemail',
+  },
   alternates: {
     canonical: getCanonicalUrl('/privacy')
   }
