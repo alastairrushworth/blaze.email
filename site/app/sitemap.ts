@@ -2,7 +2,7 @@ import { newsletters } from './siteConfig';
 import { MetadataRoute } from 'next';
 import { format, addDays } from 'date-fns';
 
-// This is a static sitemap to avoid database queries during build
+// Dynamic sitemap that generates URLs for all pages
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://blaze.email';
   const currentDate = new Date().toISOString();
@@ -26,12 +26,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Generate static archive URLs for preset dates 
   // Instead of querying the database, we'll use a fixed set of dates
   
-  // Generate all Tuesdays from April 1, 2025 to current date
+  // Generate all Tuesdays from a start date to current date + future dates
   const startDate = new Date(2025, 3, 1); // April 1, 2025
   const endDate = new Date(); // today
   
-  // Add 90 days to ensure we have enough future dates for testing
-  const extendedEndDate = addDays(endDate, 90);
+  // Add 30 days to include a reasonable number of future dates
+  const extendedEndDate = addDays(endDate, 30);
   
   // Get all Tuesdays in the range by looping through dates
   const tuesdayDates: Date[] = [];
@@ -62,13 +62,31 @@ export default function sitemap(): MetadataRoute.Sitemap {
     });
   });
   
-  // Static pages like home page
+  // Static pages
   const staticPages = [
     {
       url: baseUrl,
       lastModified: currentDate,
       changeFrequency: 'daily' as const,
       priority: 1.0,
+    },
+    {
+      url: `${baseUrl}/about`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/privacy`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/unsubscribe`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.5,
     },
   ];
   
