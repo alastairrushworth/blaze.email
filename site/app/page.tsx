@@ -15,6 +15,8 @@ export const metadata: Metadata = {
     description: siteMetadata.description,
     type: 'website',
     siteName: siteMetadata.name,
+    locale: 'en_US',
+    url: siteMetadata.baseUrl,
     images: [
       {
         url: `${siteMetadata.baseUrl}/api/og?topic=Newsletters`,
@@ -23,6 +25,14 @@ export const metadata: Metadata = {
         alt: `${siteMetadata.name} weekly tech newsletters`,
       },
     ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: `${siteMetadata.name} - ${siteMetadata.title}`,
+    description: siteMetadata.description,
+    images: [`${siteMetadata.baseUrl}/api/og?topic=Newsletters`],
+    creator: '@blazeemail',
+    site: '@blazeemail',
   },
   alternates: {
     canonical: getCanonicalUrl('/')
