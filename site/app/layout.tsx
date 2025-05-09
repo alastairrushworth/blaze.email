@@ -27,7 +27,31 @@ export const metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://blaze.email'),
   alternates: {
     canonical: '/',
-  }
+  },
+  openGraph: {
+    title: "blaze.email - Weekly Tech Newsletters",
+    description: "Stay updated with weekly curated tech newsletters on AI, data science, tech startups, machine learning, crypto, and electronics",
+    url: 'https://blaze.email',
+    siteName: 'blaze.email',
+    images: [
+      {
+        url: '/logo.png',
+        width: 800,
+        height: 600,
+        alt: 'blaze.email logo',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "blaze.email - Weekly Tech Newsletters",
+    description: "Stay updated with weekly curated tech newsletters on AI, data science, tech startups, machine learning, crypto, and electronics",
+    images: ['/logo.png'],
+    creator: '@blazeemail',
+    site: '@blazeemail',
+  },
 }
 
 export default function RootLayout({
