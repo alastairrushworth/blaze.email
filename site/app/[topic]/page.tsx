@@ -48,9 +48,18 @@ export async function generateMetadata({ params }: { params: { topic: string } }
       description,
       type: 'article',
       siteName: siteMetadata.name,
+      locale: 'en_US',
       url: canonicalUrl,
       publishedTime: latestNewsletter?.publishedat,
       images: [{ url: imageUrl, width: 1200, height: 630, alt: topicDetails?.title || normalizedTopic }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: topicDetails?.title || normalizedTopic,
+      description,
+      images: [imageUrl],
+      creator: '@blazeemail',
+      site: '@blazeemail',
     },
     alternates: {
       canonical: canonicalUrl
