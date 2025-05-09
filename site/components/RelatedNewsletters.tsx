@@ -9,10 +9,23 @@ interface RelatedNewslettersProps {
 }
 
 export function RelatedNewsletters({ currentTopic, limit = 3 }: RelatedNewslettersProps) {
-  // Get related newsletters (excluding current one)
-  const relatedNewsletters = Object.entries(newsletters)
-    .filter(([topic]) => topic !== currentTopic)
-    .slice(0, limit);
+  // Get related newsletters from siteConfig or fallback to random selection
+  let relatedNewsletters: [string, any][] = [];
+  
+  const currentTopicDetails = newsletters[currentTopic];
+  
+  if (currentTopicDetails?.related && currentTopicDetails.related.length > 0) {
+    // Use the predefined related newsletters
+    relatedNewsletters = currentTopicDetails.related
+      .map(topic => [topic, newsletters[topic]])
+      .filter(([_, details]) => details) // Filter out any invalid topics
+      .slice(0, limit);
+  } else {
+    // Fallback to random selection if no related newsletters are defined
+    relatedNewsletters = Object.entries(newsletters)
+      .filter(([topic]) => topic !== currentTopic)
+      .slice(0, limit);
+  }
 
   return (
     <section className="mt-12">
