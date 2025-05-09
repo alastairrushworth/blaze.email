@@ -11,5 +11,5 @@ Allow: /
 User-agent: Bingbot
 Allow: /
 
-# Sitemap locations
+# Sitemap location - dynamically generated
 Sitemap: https://blaze.email/sitemap.xml
