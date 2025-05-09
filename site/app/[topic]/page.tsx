@@ -140,39 +140,31 @@ export default async function TopicPage({ params }: { params: { topic: string } 
           </p>
         )}
 
-        <div className="mb-6 md:mb-8">
+        <div className="mb-5 md:mb-6">
           <SignupForm topic={normalizedTopic} />
         </div>
-
-        <LatestNewsletter newsletter={latestNewsletter} />
         
-        {/* Newsletter Archive Section */}
-        {archiveNewsletters && archiveNewsletters.length > 0 && (
-          <section className="mt-10 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-            <h2 className="text-xl font-semibold mb-4 text-indigo-700 dark:text-indigo-300">
-              Previous {topicDetails?.title || normalizedTopic} Newsletters
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              {archiveNewsletters.map((newsletter, index) => {
-                // Skip the latest newsletter since it's already displayed
+        {/* Older Newsletter Button - only one navigation option from latest */}
+        <div className="mb-4 md:mb-6 flex justify-end space-x-4">
+          {archiveNewsletters && archiveNewsletters.length > 0 ? (
+            (() => {
+              // Find the first previous newsletter (skipping the current one)
+              const latestDate = latestNewsletter?.publishedat ? new Date(latestNewsletter.publishedat) : null;
+              
+              // Find the first newsletter that's not the current one
+              for (let i = 0; i < archiveNewsletters.length; i++) {
+                const newsletter = archiveNewsletters[i];
                 const newsletterDate = new Date(newsletter.publishedat);
-                const latestDate = latestNewsletter?.publishedat ? new Date(latestNewsletter.publishedat) : null;
-                
-                // Verify it's a Tuesday and skip if not
-                const dayOfWeek = newsletterDate.getDay();
-                if (dayOfWeek !== 2) { // 0 is Sunday, 1 is Monday, 2 is Tuesday
-                  console.log(`Skipping non-Tuesday date: ${newsletterDate.toISOString()}`);
-                  return null;
-                }
                 
                 // Skip if this is the same date as latest newsletter (compare year, month, day)
                 if (latestDate && 
                     newsletterDate.getFullYear() === latestDate.getFullYear() &&
                     newsletterDate.getMonth() === latestDate.getMonth() &&
                     newsletterDate.getDate() === latestDate.getDate()) {
-                  return null;
+                  continue;
                 }
                 
+                // Format the date for display and URL
                 const formattedArchiveDate = format(newsletterDate, "yyyy-MM-dd");
                 const displayDate = format(newsletterDate, "do MMMM yyyy");
                 
@@ -180,22 +172,29 @@ export default async function TopicPage({ params }: { params: { topic: string } 
                   <Link 
                     key={formattedArchiveDate}
                     href={`/${params.topic}/archive/${formattedArchiveDate}`}
-                    className="p-3 border border-gray-200 dark:border-gray-700 rounded hover:bg-indigo-50 dark:hover:bg-gray-700 transition-colors"
+                    className="inline-flex items-center justify-center py-2 px-4 rounded-lg bg-white dark:bg-gray-800 shadow transition-colors hover:bg-indigo-50 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200"
                   >
-                    <div className="flex items-center">
-                      <span className="text-indigo-600 dark:text-indigo-400 mr-2">
-                        <svg xmlns="https://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                      </span>
-                      <span className="text-sm text-gray-700 dark:text-gray-300">{displayDate}</span>
-                    </div>
+                    <span className="text-sm font-medium">Older</span>
+                    <svg 
+                      xmlns="https://www.w3.org/2000/svg" 
+                      className="h-4 w-4 ml-1.5" 
+                      fill="none" 
+                      viewBox="0 0 24 24" 
+                      stroke="currentColor"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
                   </Link>
                 );
-              })}
-            </div>
-          </section>
-        )}
+              }
+              
+              // If we reach here, no previous newsletter was found
+              return null;
+            })()
+          ) : null}
+        </div>
+
+        <LatestNewsletter newsletter={latestNewsletter} />
 
         {/* Related Newsletters Section */}
         <section className="mt-12">

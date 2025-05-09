@@ -1,10 +1,11 @@
 import { LatestNewsletter } from "@/components/LatestNewsletter"
 import Breadcrumb from "@/components/Breadcrumb"
 import SchemaJsonLd from "@/components/SchemaJsonLd"
-import { getNewsletterByDate } from '@/lib/db'
+import { getNewsletterByDate, getNewsletterArchive } from '@/lib/db'
 import { format, parse } from 'date-fns'
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import Link from 'next/link'
 import { generateNewsletterSchema, getCanonicalUrl } from '@/lib/schema'
 import { newsletters, siteMetadata, normalizeTopicPath } from '../../../siteConfig'
 import BackButton from "@/components/BackButton"
@@ -136,6 +137,42 @@ export default async function ArchiveNewsletterPage({ params }: { params: { topi
     console.log(`Note: Showing newsletter from ${newsletterDate.toISOString().split('T')[0]} instead of requested date ${params.date}`);
   }
   
+  // Get all newsletters for navigation
+  const archiveNewsletters = await getNewsletterArchive(params.topic, '2025-04-01');
+  
+  // Find the current newsletter's index in the archive
+  let currentIndex = -1;
+  let prevNewsletter = null;
+  let nextNewsletter = null;
+  
+  if (archiveNewsletters && archiveNewsletters.length > 0) {
+    // Find the current newsletter's index
+    for (let i = 0; i < archiveNewsletters.length; i++) {
+      const archiveDate = new Date(archiveNewsletters[i].publishedat);
+      if (
+        archiveDate.getFullYear() === newsletterDate.getFullYear() &&
+        archiveDate.getMonth() === newsletterDate.getMonth() &&
+        archiveDate.getDate() === newsletterDate.getDate()
+      ) {
+        currentIndex = i;
+        break;
+      }
+    }
+    
+    // In archive array, index 0 is newest, higher indexes are older
+    // So "newer" is lower index, "older" is higher index
+    
+    if (currentIndex > 0) {
+      // There's a newer newsletter (smaller index = more recent)
+      nextNewsletter = archiveNewsletters[currentIndex - 1];
+    }
+    
+    if (currentIndex < archiveNewsletters.length - 1 && currentIndex !== -1) {
+      // There's an older newsletter (larger index = older)
+      prevNewsletter = archiveNewsletters[currentIndex + 1];
+    }
+  }
+  
   // Normalize topic and get details
   const normalizedTopic = normalizeTopicPath(params.topic)
   const topicDetails = newsletters[normalizedTopic]
@@ -180,15 +217,48 @@ export default async function ArchiveNewsletterPage({ params }: { params: { topi
           {formattedTextDate}
         </p>
 
-        <div className="mb-6">
-          <BackButton href={`/${params.topic}`} label={`Back to latest ${topicDetails?.title || normalizedTopic}`} />
+        <div className="mb-6 flex justify-end space-x-4">
+          {/* Navigation buttons - just at the top */}
+          {/* Newer button (points left toward more recent newsletters) */}
+          {nextNewsletter && (
+            <Link 
+              href={`/${params.topic}/archive/${format(new Date(nextNewsletter.publishedat), "yyyy-MM-dd")}`}
+              className="inline-flex items-center justify-center py-2 px-4 rounded-lg bg-white dark:bg-gray-800 shadow transition-colors hover:bg-indigo-50 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200"
+            >
+              <svg 
+                xmlns="https://www.w3.org/2000/svg" 
+                className="h-4 w-4 mr-1.5" 
+                fill="none" 
+                viewBox="0 0 24 24" 
+                stroke="currentColor"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+              <span className="text-sm font-medium">Newer</span>
+            </Link>
+          )}
+          
+          {/* Older button (points right toward older newsletters) */}
+          {prevNewsletter && (
+            <Link 
+              href={`/${params.topic}/archive/${format(new Date(prevNewsletter.publishedat), "yyyy-MM-dd")}`}
+              className="inline-flex items-center justify-center py-2 px-4 rounded-lg bg-white dark:bg-gray-800 shadow transition-colors hover:bg-indigo-50 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200"
+            >
+              <span className="text-sm font-medium">Older</span>
+              <svg 
+                xmlns="https://www.w3.org/2000/svg" 
+                className="h-4 w-4 ml-1.5" 
+                fill="none" 
+                viewBox="0 0 24 24" 
+                stroke="currentColor"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
+          )}
         </div>
 
         <LatestNewsletter newsletter={newsletter} />
-        
-        <div className="mt-6">
-          <BackButton href={`/${params.topic}`} label={`Back to latest ${topicDetails?.title || normalizedTopic}`} />
-        </div>
       </div>
     </div>
   )
