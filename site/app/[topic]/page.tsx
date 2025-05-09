@@ -132,47 +132,45 @@ export default async function TopicPage({ params }: { params: { topic: string } 
           ]}
         />
 
-        <div className="flex items-center justify-center mb-3 md:mb-4">
+        <div className="mt-3 flex items-center justify-center mb-6 md:mb-8">
           <span className="mr-2 text-3xl md:text-4xl" role="img" aria-label={`${topicDetails?.title || normalizedTopic} icon`}>{topicDetails?.emoji}</span>
           <h1 className="text-3xl md:text-4xl font-bold text-indigo-800 dark:text-indigo-200">
             {topicDetails?.title || normalizedTopic}
           </h1>
         </div>
-        {formattedTextDate && (
-          <p className="text-sm md:text-base text-center text-gray-500 dark:text-gray-400 mb-4 md:mb-5">
-            {formattedTextDate}
-          </p>
-        )}
 
         <div className="mb-5 md:mb-6">
           <SignupForm topic={normalizedTopic} />
         </div>
         
-        {/* Older Newsletter Button - only one navigation option from latest */}
-        {archiveNewsletters && archiveNewsletters.length > 0 && latestNewsletter?.publishedat && (
-          (() => {
-            const latestDate = new Date(latestNewsletter.publishedat);
-            let prevNewsletter = null;
-            
-            // Find the first previous newsletter (skipping the current one)
-            for (let i = 0; i < archiveNewsletters.length; i++) {
-              const newsletter = archiveNewsletters[i];
-              const newsletterDate = new Date(newsletter.publishedat);
-              
-              // Skip if this is the same date as latest newsletter
-              if (newsletterDate.getFullYear() === latestDate.getFullYear() &&
-                  newsletterDate.getMonth() === latestDate.getMonth() &&
-                  newsletterDate.getDate() === latestDate.getDate()) {
-                continue;
-              }
-              
-              prevNewsletter = newsletter;
-              break;
-            }
-            
-            return <NewsletterNavigation topic={params.topic} prevNewsletter={prevNewsletter} />;
-          })()
-        )}
+        {/* Date and Navigation row */}
+        <div className="flex justify-between items-center mb-2 md:mb-3">
+          {/* Date on the left */}
+          {formattedTextDate && (
+            <p className="text-sm md:text-base text-gray-500 dark:text-gray-400">
+              Published {formattedTextDate}
+            </p>
+          )}
+          
+          {/* Navigation buttons on the right */}
+          <div className="flex justify-end">
+            {archiveNewsletters && archiveNewsletters.length > 0 && latestNewsletter?.publishedat && (
+              (() => {
+                const latestDate = new Date(latestNewsletter.publishedat);
+                // Find adjacent newsletters (previous and next)
+                const { prevNewsletter, nextNewsletter } = findAdjacentNewsletters(archiveNewsletters, latestDate);
+                
+                return (
+                  <NewsletterNavigation 
+                    topic={params.topic} 
+                    prevNewsletter={prevNewsletter}
+                    nextNewsletter={nextNewsletter} 
+                  />
+                );
+              })()
+            )}
+          </div>
+        </div>
 
         <LatestNewsletter newsletter={latestNewsletter} />
 

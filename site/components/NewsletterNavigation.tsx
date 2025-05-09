@@ -13,7 +13,7 @@ interface NewsletterNavigationProps {
 
 export function NewsletterNavigation({ topic, prevNewsletter, nextNewsletter }: NewsletterNavigationProps) {
   return (
-    <div className="mb-4 md:mb-6 flex justify-end space-x-4">
+    <div className="flex justify-end space-x-4">
       {/* Newer button (points left toward more recent newsletters) */}
       {nextNewsletter && (
         <Link 
