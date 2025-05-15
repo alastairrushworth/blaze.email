@@ -33,13 +33,8 @@ export async function generateMetadata({ params }: { params: { topic: string } }
   
   const latestNewsletter = await getLatestNewsletter(params.topic)
   
-  // Format date for OG image
-  const formattedDate = latestNewsletter?.publishedat 
-    ? format(new Date(latestNewsletter.publishedat), "MMMM d, yyyy")
-    : null;
-
   // Build URLs and descriptions
-  const imageUrl = `${siteMetadata.baseUrl}/api/og?topic=${encodeURIComponent(params.topic)}&date=${encodeURIComponent(formattedDate || '')}`;
+  const imageUrl = `${siteMetadata.baseUrl}/logo.png`;
   const canonicalUrl = getCanonicalUrl(`/${params.topic}`);
   const description = topicDetails?.description || `${normalizedTopic} digest featuring ${aboutText}`;
 
@@ -110,7 +105,7 @@ export default async function TopicPage({ params }: { params: { topic: string } 
     topic: normalizedTopic,
     url: getCanonicalUrl(`/${params.topic}`),
     publishedAt: latestNewsletter?.publishedat,
-    imageUrl: `${siteMetadata.baseUrl}/api/og?topic=${encodeURIComponent(params.topic)}&date=${encodeURIComponent(formattedDate || '')}`,
+    imageUrl: `${siteMetadata.baseUrl}/logo.png`,
     keywords: topicDetails?.keywords
   }
   
