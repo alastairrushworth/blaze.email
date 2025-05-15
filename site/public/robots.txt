@@ -3,13 +3,17 @@ Allow: /
 Disallow: /api/
 Disallow: /_next/
 
-# Allow Google to index everything
+# Google indexing rules
 User-agent: Googlebot
 Allow: /
+Disallow: /api/
+Disallow: /_next/
 
-# Allow Bing to index everything 
+# Bing indexing rules
 User-agent: Bingbot
 Allow: /
+Disallow: /api/
+Disallow: /_next/
 
 # Sitemap location - dynamically generated
 Sitemap: https://blaze.email/sitemap.xml

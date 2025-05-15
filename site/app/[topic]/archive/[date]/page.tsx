@@ -62,7 +62,7 @@ export async function generateMetadata({ params }: { params: { topic: string, da
   const formattedDate = format(new Date(newsletter.publishedat), "MMMM d, yyyy")
 
   // Build URLs and descriptions
-  const imageUrl = `${siteMetadata.baseUrl}/api/og?topic=${encodeURIComponent(params.topic)}&date=${encodeURIComponent(formattedDate || '')}`;
+  const imageUrl = `${siteMetadata.baseUrl}/logo.png`;
   const canonicalUrl = getCanonicalUrl(`/${params.topic}/archive/${params.date}`);
   const description = `${normalizedTopic} digest from ${formattedDate} featuring ${aboutText}`;
   const pageTitle = `${topicDetails?.title || normalizedTopic} - ${formattedDate}`;
@@ -163,7 +163,7 @@ export default async function ArchiveNewsletterPage({ params }: { params: { topi
     topic: normalizedTopic,
     url: getCanonicalUrl(`/${params.topic}/archive/${params.date}`),
     publishedAt: newsletter.publishedat,
-    imageUrl: `${siteMetadata.baseUrl}/api/og?topic=${encodeURIComponent(params.topic)}&date=${encodeURIComponent(formattedTextDate || '')}`,
+    imageUrl: `${siteMetadata.baseUrl}/logo.png`,
     keywords: topicDetails?.keywords
   }
 
