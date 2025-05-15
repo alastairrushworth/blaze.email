@@ -5,6 +5,9 @@ import Breadcrumb from '@/components/Breadcrumb'
 import { getNewsletterArchive } from '@/lib/db'
 import { format } from 'date-fns'
 
+// Add dynamic export to prevent static generation timeout
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Newsletter Archives - Blaze.Email',
   description: 'Browse our archive of past newsletters covering various topics in tech, AI, and more.',
@@ -38,15 +41,16 @@ export const metadata: Metadata = {
 }
 
 export default async function ArchivePage() {
-  // Get archive data for all topics - get all available archives
+  // Get archive data for all topics - use a limit to prevent timeouts
   const topicArchives = await Promise.all(
     Object.keys(newsletters).map(async (topic) => {
       const formattedTopic = formatTopicPath(topic);
+      // Limit to the top 20 most recent archives per topic to keep page performance reasonable
       const archives = await getNewsletterArchive(formattedTopic, '2025-04-01');
       return {
         topic,
         formattedTopic,
-        archives: archives // Get all archives
+        archives: archives.slice(0, 20) // Limit to 20 most recent archives per topic
       };
     })
   );
