@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     url: siteMetadata.baseUrl,
     images: [
       {
-        url: `${siteMetadata.baseUrl}/api/og?topic=Newsletters`,
+        url: `${siteMetadata.baseUrl}/logo.png`,
         width: 1200,
         height: 630,
         alt: `${siteMetadata.name} weekly tech newsletters`,
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: `${siteMetadata.name} - ${siteMetadata.title}`,
     description: siteMetadata.description,
-    images: [`${siteMetadata.baseUrl}/api/og?topic=Newsletters`],
+    images: [`${siteMetadata.baseUrl}/logo.png`],
     creator: '@blazeemail',
     site: '@blazeemail',
   },

@@ -120,10 +120,16 @@ export function generateFAQSchema(questions: { question: string; answer: string 
 }
 
 /**
- * Generate a canonical URL
+ * Generate a canonical URL - strips any query parameters
  */
 export function getCanonicalUrl(path: string): string {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://blaze.email';
-  const cleanPath = path.startsWith('/') ? path : `/${path}`;
+  
+  // Remove any query parameters from the path
+  const pathWithoutQuery = path.split('?')[0];
+  
+  // Ensure path starts with a slash
+  const cleanPath = pathWithoutQuery.startsWith('/') ? pathWithoutQuery : `/${pathWithoutQuery}`;
+  
   return `${baseUrl}${cleanPath}`;
 }
