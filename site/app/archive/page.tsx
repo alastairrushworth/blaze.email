@@ -2,6 +2,8 @@ import { Metadata } from 'next'
 import { newsletters, siteMetadata, formatTopicPath } from '../siteConfig'
 import Link from 'next/link'
 import Breadcrumb from '@/components/Breadcrumb'
+import { getNewsletterArchive } from '@/lib/db'
+import { format } from 'date-fns'
 
 export const metadata: Metadata = {
   title: 'Newsletter Archives - Blaze.Email',
@@ -15,7 +17,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: `${siteMetadata.baseUrl}/api/og?topic=Archives`,
+        url: `${siteMetadata.baseUrl}/logo.png`,
         width: 1200,
         height: 630,
         alt: 'Newsletter Archives - Blaze.Email',
@@ -26,7 +28,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Newsletter Archives - Blaze.Email',
     description: 'Browse our archive of past newsletters covering various topics in tech, AI, and more.',
-    images: [`${siteMetadata.baseUrl}/api/og?topic=Archives`],
+    images: [`${siteMetadata.baseUrl}/logo.png`],
     creator: '@blazeemail',
     site: '@blazeemail',
   },
@@ -35,7 +37,50 @@ export const metadata: Metadata = {
   }
 }
 
-export default function ArchivePage() {
+export default async function ArchivePage() {
+  // Get archive data for all topics - get all available archives
+  const topicArchives = await Promise.all(
+    Object.keys(newsletters).map(async (topic) => {
+      const formattedTopic = formatTopicPath(topic);
+      const archives = await getNewsletterArchive(formattedTopic, '2025-04-01');
+      return {
+        topic,
+        formattedTopic,
+        archives: archives // Get all archives
+      };
+    })
+  );
+
+  // Group archives by year and month for each topic
+  const groupedArchives = topicArchives.map(({ topic, formattedTopic, archives }) => {
+    const grouped = {};
+    
+    archives.forEach(archive => {
+      const date = new Date(archive.publishedat);
+      const year = date.getFullYear();
+      const month = date.getMonth();
+      
+      if (!grouped[year]) {
+        grouped[year] = {};
+      }
+      
+      if (!grouped[year][month]) {
+        grouped[year][month] = [];
+      }
+      
+      grouped[year][month].push({
+        date,
+        linkDate: format(date, "yyyy-MM-dd")
+      });
+    });
+    
+    return {
+      topic,
+      formattedTopic,
+      groupedArchives: grouped
+    };
+  });
+
   return (
     <div className="container mx-auto px-4 py-8">
       <Breadcrumb
@@ -50,30 +95,93 @@ export default function ArchivePage() {
       </h1>
       
       <p className="text-lg text-center max-w-2xl mx-auto mb-10 text-gray-700 dark:text-gray-300">
-        Browse our collection of past newsletters. Each newsletter provides insights, 
+        Browse our complete collection of past newsletters. Each newsletter provides insights, 
         updates, and resources on their respective topics.
       </p>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {Object.entries(newsletters).map(([topic, details]) => (
-          <Link
-            key={topic}
-            href={`/${formatTopicPath(topic)}`}
-            className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 hover:shadow-xl transition-all duration-300 relative"
-          >
-            <h2 className="text-xl font-semibold text-indigo-700 dark:text-indigo-300 mb-3 flex items-center">
-              <span className="mr-2 text-2xl" role="img" aria-label={`${topic} icon`}>
-                {details.emoji}
-              </span> 
-              {details.title || topic}
-            </h2>
-            <p className="text-gray-600 dark:text-gray-300 mb-3">
-              {details.about}
-            </p>
-            <div className="text-indigo-600 dark:text-indigo-400 font-medium">
-              View latest issue
+      <div className="space-y-16">
+        {groupedArchives.map(({ topic, formattedTopic, groupedArchives }) => (
+          <div key={topic} className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+            <div className="flex items-center mb-6">
+              <span className="mr-2 text-3xl" role="img" aria-label={`${topic} icon`}>
+                {newsletters[topic].emoji}
+              </span>
+              <h2 className="text-2xl font-semibold text-indigo-700 dark:text-indigo-300">
+                {newsletters[topic].title || topic}
+              </h2>
             </div>
-          </Link>
+            
+            <p className="text-gray-600 dark:text-gray-300 mb-6">
+              {newsletters[topic].about}
+            </p>
+            
+            <div className="mb-6">
+              <Link 
+                href={`/${formattedTopic}`}
+                className="text-indigo-600 dark:text-indigo-400 font-medium hover:underline"
+              >
+                View latest issue →
+              </Link>
+            </div>
+            
+            {Object.keys(groupedArchives).length > 0 ? (
+              <div>
+                <h3 className="text-xl font-medium text-gray-800 dark:text-gray-200 mb-5 border-b border-gray-200 dark:border-gray-600 pb-2">
+                  All Archive Issues
+                </h3>
+                
+                <div className="space-y-8">
+                  {Object.keys(groupedArchives)
+                    .sort((a, b) => parseInt(b) - parseInt(a)) // Sort years descending
+                    .map(year => (
+                      <div key={year} className="mb-6">
+                        <h4 className="text-lg font-medium text-indigo-700 dark:text-indigo-300 mb-3">
+                          {year}
+                        </h4>
+                        
+                        <div className="space-y-6">
+                          {Object.keys(groupedArchives[year])
+                            .sort((a, b) => parseInt(b) - parseInt(a)) // Sort months descending
+                            .map(month => {
+                              const monthName = new Date(parseInt(year), parseInt(month), 1).toLocaleString('default', { month: 'long' });
+                              return (
+                                <div key={`${year}-${month}`} className="ml-4">
+                                  <h5 className="text-md font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    {monthName}
+                                  </h5>
+                                  
+                                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 ml-4">
+                                    {groupedArchives[year][month]
+                                      .sort((a, b) => b.date - a.date) // Sort dates descending
+                                      .map(({ date, linkDate }) => (
+                                        <Link
+                                          key={linkDate}
+                                          href={`/${formattedTopic}/archive/${linkDate}`}
+                                          className="bg-gray-50 dark:bg-gray-700 rounded-md p-2 hover:bg-indigo-50 dark:hover:bg-gray-600 transition-colors text-sm"
+                                        >
+                                          <span className="text-indigo-600 dark:text-indigo-400">
+                                            {format(date, "MMMM d, yyyy")}
+                                          </span>
+                                        </Link>
+                                      ))
+                                    }
+                                  </div>
+                                </div>
+                              );
+                            })
+                          }
+                        </div>
+                      </div>
+                    ))
+                  }
+                </div>
+              </div>
+            ) : (
+              <p className="text-gray-500 dark:text-gray-400 italic">
+                No archived issues available yet.
+              </p>
+            )}
+          </div>
         ))}
       </div>
     </div>
