@@ -184,7 +184,7 @@ export default async function ArchiveNewsletterPage({ params }: { params: { topi
         <div className="mt-3 flex items-center justify-center mb-6 md:mb-8">
           <span className="mr-2 text-3xl md:text-4xl" role="img" aria-label={`${topicDetails?.title || normalizedTopic} icon`}>{topicDetails?.emoji}</span>
           <h1 className="text-3xl md:text-4xl font-bold text-indigo-800 dark:text-indigo-200">
-            {topicDetails?.title || normalizedTopic}
+            {topicDetails?.title || normalizedTopic}: {formattedTextDate}
           </h1>
         </div>
 
