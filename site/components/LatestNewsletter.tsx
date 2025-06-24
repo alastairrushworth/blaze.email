@@ -2,7 +2,7 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import remarkBreaks from 'remark-breaks';
-import { format, parseISO } from 'date-fns';
+import rehypeRaw from 'rehype-raw';
 
 interface Newsletter {
   content: string;
@@ -58,6 +58,7 @@ export function LatestNewsletter({ newsletter }: { newsletter?: Newsletter | nul
           <div className="prose dark:prose-invert max-w-none prose-base sm:prose-lg prose-indigo">
             <ReactMarkdown
               remarkPlugins={[remarkGfm, remarkBreaks]}
+              rehypePlugins={[rehypeRaw]}
               components={{
                 // Remove h2 from markdown rendering since we're handling it separately
                 h2: () => null,
