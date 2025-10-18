@@ -42,6 +42,11 @@ export function Footer() {
                   Unsubscribe
                 </Link>
               </li>
+              <li>
+                <Link href="/feeds" className="text-indigo-200 dark:text-indigo-300 hover:text-white transition-colors">
+                  RSS Feeds
+                </Link>
+              </li>
             </ul>
           </div>
           <div className="w-full md:w-1/3">

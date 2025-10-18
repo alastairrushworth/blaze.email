@@ -144,6 +144,45 @@ export async function getNewsletterArchive(topic: string, startDate: string = '2
   }
 }
 
+export async function getRecentNewsletters(topic: string, limit: number = 10) {
+  try {
+    const client = await pool.connect();
+    const topic_name = topic.replace(/-/g, ' ');
+
+    console.log(`Getting recent ${limit} newsletters for ${topic_name}`);
+
+    // Query to get the last N newsletters (one per unique date)
+    const query = `
+      WITH tuesday_newsletters AS (
+        SELECT
+          text as content,
+          datetime as publishedat,
+          DATE(datetime) as newsletter_date
+        FROM blaze_newsletter_md
+        WHERE newsletter = $1
+          AND EXTRACT(DOW FROM datetime) = 2  /* Tuesday */
+      )
+      SELECT DISTINCT ON (newsletter_date)
+        content,
+        publishedat,
+        newsletter_date
+      FROM tuesday_newsletters
+      ORDER BY newsletter_date DESC, publishedat DESC
+      LIMIT $2
+    `;
+
+    const result = await client.query(query, [topic_name, limit]);
+    client.release();
+
+    console.log(`Found ${result.rows.length} recent newsletters for ${topic_name}`);
+
+    return result.rows;
+  } catch (error) {
+    console.error('Error fetching recent newsletters:', error);
+    return [];
+  }
+}
+
 export async function unsubscribeNewsletter(email: string, topic: string) {
   try {
     const client = await pool.connect();
