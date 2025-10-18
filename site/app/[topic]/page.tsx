@@ -61,7 +61,15 @@ export async function generateMetadata({ params }: { params: { topic: string } }
       site: '@blazeemail',
     },
     alternates: {
-      canonical: canonicalUrl
+      canonical: canonicalUrl,
+      types: {
+        'application/rss+xml': [
+          {
+            url: `/${params.topic}/feed.xml`,
+            title: `${topicDetails?.title || normalizedTopic} RSS Feed`
+          }
+        ]
+      }
     }
   }
 }
@@ -136,6 +144,22 @@ export default async function TopicPage({ params }: { params: { topic: string } 
 
         <div className="mb-5 md:mb-6">
           <SignupForm topic={normalizedTopic} />
+        </div>
+
+        {/* RSS Feed Link */}
+        <div className="flex justify-center mb-4">
+          <a
+            href={`/${params.topic}/feed.xml`}
+            className="inline-flex items-center gap-2 text-sm text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M5 3a1 1 0 000 2c5.523 0 10 4.477 10 10a1 1 0 102 0C17 8.373 11.627 3 5 3z" />
+              <path d="M4 9a1 1 0 011-1 7 7 0 017 7 1 1 0 11-2 0 5 5 0 00-5-5 1 1 0 01-1-1zM3 15a2 2 0 114 0 2 2 0 01-4 0z" />
+            </svg>
+            Subscribe via RSS
+          </a>
         </div>
         
         {/* Date and Navigation row */}

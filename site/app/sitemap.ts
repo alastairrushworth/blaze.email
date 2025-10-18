@@ -14,6 +14,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: 'weekly' as const,
     priority: 0.9,
   }));
+
+  // RSS feed URLs for each newsletter
+  const rssFeedUrls = Object.keys(newsletters).map(topic => ({
+    url: `${baseUrl}/${topic.replace(/\s+/g, '-')}/feed.xml`,
+    lastModified: currentDate,
+    changeFrequency: 'weekly' as const,
+    priority: 0.8,
+  }));
   
   // Archive page
   const archiveUrl = {
@@ -88,6 +96,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly' as const,
       priority: 0.5,
     },
+    {
+      url: `${baseUrl}/feeds`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly' as const,
+      priority: 0.6,
+    },
   ];
   
   // Limit the number of URLs to avoid timeouts
@@ -97,5 +111,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     archiveUrls = archiveUrls.slice(0, maxUrls);
   }
   
-  return [...staticPages, ...newsletterUrls, archiveUrl, ...archiveUrls];
+  return [...staticPages, ...newsletterUrls, ...rssFeedUrls, archiveUrl, ...archiveUrls];
 }
