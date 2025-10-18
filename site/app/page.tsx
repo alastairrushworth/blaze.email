@@ -89,10 +89,9 @@ export default function Home() {
                 {/* RSS feed link */}
                 <a
                   href={`/${formatTopicPath(topic)}/feed.xml`}
-                  className="absolute bottom-4 right-4 p-1 text-indigo-400 dark:text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-300 transition-colors"
+                  className="absolute bottom-4 right-4 p-1 text-indigo-400 dark:text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-300 transition-colors z-10"
                   title={`${topic} RSS Feed`}
                   aria-label={`${topic} RSS Feed`}
-                  onClick={(e) => e.stopPropagation()}
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                     <path d="M5 3a1 1 0 000 2c5.523 0 10 4.477 10 10a1 1 0 102 0C17 8.373 11.627 3 5 3z" />
