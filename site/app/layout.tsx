@@ -1,5 +1,5 @@
 import "./globals.css"
-import { DM_Sans } from "next/font/google"
+import { Bangers } from "next/font/google"
 import { Footer } from "@/components/Footer"
 import GoogleAnalytics from "@/components/GoogleAnalytics"
 import SchemaJsonLd from "@/components/SchemaJsonLd"
@@ -7,10 +7,11 @@ import { generateOrganizationSchema } from "@/lib/schema"
 import { Suspense } from "react"
 import type React from "react"
 
-const dmSans = DM_Sans({
+const bangers = Bangers({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-dm-sans",
+  weight: "400",
+  variable: "--font-bangers",
 })
 
 export const metadata = {
@@ -57,11 +58,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={dmSans.variable}>
+    <html lang="en" className={bangers.variable}>
       <Suspense fallback={null}>
         <GoogleAnalytics />
       </Suspense>
-      <body className="bg-white text-gray-900 font-dm-sans">
+      <body className="bg-white text-gray-900 font-sans">
         <div className="flex flex-col min-h-screen">
           <SchemaJsonLd schema={generateOrganizationSchema()} />
           <main className="flex-grow">
