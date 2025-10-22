@@ -55,27 +55,4 @@ export const newsletters: Record<string, Newsletter> = {
   }
 }
 
-// FAQ content
-export const faqData = [
-  {
-    question: "How often are the newsletters sent?",
-    answer: "All newsletters are sent once per week, typically on Mondays. Each newsletter contains the most important content from the previous week."
-  },
-  {
-    question: "Are these newsletters free to subscribe?",
-    answer: "Yes, all newsletters are completely free. Simply enter your email address to subscribe to any of our tech newsletters."
-  },
-  {
-    question: "How do I unsubscribe from a newsletter?",
-    answer: "You can easily unsubscribe by clicking the unsubscribe link at the bottom of any newsletter email, or by visiting the unsubscribe page on our website."
-  },
-  {
-    question: "What kind of content is included in the newsletters?",
-    answer: "Each newsletter contains a curated selection of the best articles, blog posts, tools, and resources related to its specific tech topic, all summarized for easy consumption."
-  },
-  {
-    question: "Can I subscribe to multiple newsletters?",
-    answer: "Absolutely! You can subscribe to as many of our topic-specific newsletters as you'd like. Each one is curated separately to focus on its particular technology area."
-  }
-]
 
