@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blaze Newsletters - Weekly Digests for Devs & Tech Professionals</title>
+  <meta name="description" content="Subscribe to our free weekly tech newsletters covering AI, data science, machine learning, crypto, tech startups, and electronics.">
+  <meta name="keywords" content="tech newsletters, AI newsletter, data science newsletter, machine learning newsletter, crypto newsletter, tech startups, weekly newsletter">
+
+  <!-- Favicon -->
+  <link rel="icon" href="/site/public/favicon.png" type="image/png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://blaze.email/">
+  <meta property="og:title" content="Blaze Newsletters - Weekly Tech Newsletters">
+  <meta property="og:description" content="Subscribe to our free weekly tech newsletters covering AI, data science, machine learning, crypto, tech startups, and electronics.">
+  <meta property="og:image" content="https://blaze.email/site/public/logo.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://blaze.email/">
+  <meta property="twitter:title" content="Blaze Newsletters - Weekly Tech Newsletters">
+  <meta property="twitter:description" content="Subscribe to our free weekly tech newsletters covering AI, data science, machine learning, crypto, tech startups, and electronics.">
+  <meta property="twitter:image" content="https://blaze.email/site/public/logo.png">
+  <meta name="twitter:creator" content="@blazeemail">
+  <meta name="twitter:site" content="@blazeemail">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main>
+    <div class="container">
+      <!-- Header -->
+      <header>
+        <div class="logo-title">
+          <img src="/site/public/logo.png" alt="blaze.email logo" width="48" height="48">
+          <h1>Blaze Newsletters</h1>
+        </div>
+        <p class="tagline">Weekly newsletter digests collating the best blogs and tech articles</p>
+      </header>
+
+      <!-- Newsletters List -->
+      <section class="newsletters">
+        <ul>
+          <li>
+            <a href="https://ai.blaze.email">
+              <div class="newsletter-content">
+                <div>
+                  <h3><span class="emoji">🧠</span> Generative AI</h3>
+                  <p>Dev news and deep dives into LLMs and agentic AI</p>
+                </div>
+                <span class="arrow">→</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="https://rstats.blaze.email">
+              <div class="newsletter-content">
+                <div>
+                  <h3><span class="emoji">📊</span> Data Scientist (with R)</h3>
+                  <p>Programming and data science for the R community</p>
+                </div>
+                <span class="arrow">→</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="https://tech.blaze.email">
+              <div class="newsletter-content">
+                <div>
+                  <h3><span class="emoji">🚀</span> Tech and startups</h3>
+                  <p>Startup news, entrepreneurship and product dev</p>
+                </div>
+                <span class="arrow">→</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="https://ml.blaze.email">
+              <div class="newsletter-content">
+                <div>
+                  <h3><span class="emoji">🤖</span> Machine Learning Engineer</h3>
+                  <p>ML models, MLOps and engineering</p>
+                </div>
+                <span class="arrow">→</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="https://electronics.blaze.email">
+              <div class="newsletter-content">
+                <div>
+                  <h3><span class="emoji">🪛</span> Electronics</h3>
+                  <p>Hardware hacking, DIY projects and retro computing</p>
+                </div>
+                <span class="arrow">→</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="https://quantum.blaze.email">
+              <div class="newsletter-content">
+                <div>
+                  <h3><span class="emoji">⚛️</span> Quantum Computing</h3>
+                  <p>Quantum computing, algorithms, hardware and research</p>
+                </div>
+                <span class="arrow">→</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="https://math.blaze.email">
+              <div class="newsletter-content">
+                <div>
+                  <h3><span class="emoji">🧮</span> The Mathematician</h3>
+                  <p>Blogs, articles and research papers in mathematics</p>
+                </div>
+                <span class="arrow">→</span>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-left">
+          <p>&copy; <span id="year"></span> blaze.email</p>
+          <p class="footer-tagline">Weekly technology news digests</p>
+        </div>
+        <div class="footer-right">
+          <a href="https://mastodon.social/@blazeemail">Mastodon</a>
+          <a href="https://www.linkedin.com/company/96246606">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
