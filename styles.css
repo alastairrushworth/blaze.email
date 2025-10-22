@@ -1,0 +1,179 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Bangers', cursive;
+  font-style: normal;
+  background: white;
+  color: #111827;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+main {
+  min-height: calc(100vh - 120px);
+  padding: 5rem 0;
+}
+
+/* Header */
+header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.logo-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.logo-title img {
+  display: block;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.tagline {
+  font-size: 1.25rem;
+  color: #4b5563;
+  max-width: 42rem;
+  margin: 0 auto;
+}
+
+/* Newsletters List */
+.newsletters ul {
+  list-style: none;
+  max-width: 36rem;
+  margin: 0 auto;
+}
+
+.newsletters li {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.newsletters li:last-child {
+  border-bottom: none;
+}
+
+.newsletters a {
+  display: block;
+  padding: 1rem 0;
+  text-decoration: none;
+  color: inherit;
+  transition: background-color 0.15s;
+}
+
+.newsletters a:hover {
+  background-color: #f9fafb;
+}
+
+.newsletter-content {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.newsletters h3 {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: #111827;
+  margin-bottom: 0.25rem;
+}
+
+.newsletters a:hover h3 {
+  color: #374151;
+}
+
+.emoji {
+  margin-right: 0.5rem;
+}
+
+.newsletters p {
+  font-size: 0.875rem;
+  color: #4b5563;
+}
+
+.arrow {
+  color: #9ca3af;
+  margin-left: 1rem;
+  margin-top: 0.25rem;
+  flex-shrink: 0;
+}
+
+.newsletters a:hover .arrow {
+  color: #4b5563;
+}
+
+/* Footer */
+footer {
+  border-top: 1px solid #d1d5db;
+  margin-top: 5rem;
+  padding: 2rem 0;
+}
+
+.footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-size: 0.875rem;
+  color: #4b5563;
+}
+
+.footer-left {
+  margin-bottom: 1rem;
+}
+
+.footer-tagline {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-top: 0.25rem;
+}
+
+.footer-right {
+  display: flex;
+  gap: 1.5rem;
+}
+
+footer a {
+  color: #4b5563;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+footer a:hover {
+  color: #111827;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  .tagline {
+    font-size: 1.125rem;
+  }
+
+  .footer-content {
+    flex-direction: column;
+  }
+
+  .footer-right {
+    margin-top: 1rem;
+  }
+}
