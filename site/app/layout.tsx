@@ -1,18 +1,10 @@
 import "./globals.css"
-import { Bangers } from "next/font/google"
 import { Footer } from "@/components/Footer"
 import GoogleAnalytics from "@/components/GoogleAnalytics"
 import SchemaJsonLd from "@/components/SchemaJsonLd"
 import { generateOrganizationSchema } from "@/lib/schema"
 import { Suspense } from "react"
 import type React from "react"
-
-const bangers = Bangers({
-  subsets: ["latin"],
-  display: "swap",
-  weight: "400",
-  variable: "--font-bangers",
-})
 
 export const metadata = {
   title: "blaze.email - Weekly Tech Newsletters",
@@ -58,7 +50,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={bangers.variable}>
+    <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet" />
+      </head>
       <Suspense fallback={null}>
         <GoogleAnalytics />
       </Suspense>
